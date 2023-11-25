@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/storeunits', App\Http\Controllers\StoreUnitController::class);
     Route::resource('/locations', App\Http\Controllers\LocationController::class);
     Route::resource('/shipments', App\Http\Controllers\ShipmentController::class);
+    Route::resource('/shipmentdetails', App\Http\Controllers\ShipmentDetailController::class);
     Route::get('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'create'])->name('locations.createmulti');
     Route::post('/storemulti', [\App\Http\Controllers\LocationMultiController::class,'store'])->name('locations.storemulti');
     Route::post('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'index'])->name('locations.indexmulti');

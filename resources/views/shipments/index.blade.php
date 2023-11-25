@@ -19,7 +19,7 @@
                                 <label for="code">Numer dokumentu:</label></br>
                                 <strong>AUTONUMER</strong>
                             </div>
-                            <div class="col-md-12 pt-2">
+                            <div class="col-md-12 pt-4">
                                 <div class="form-group">
                                     <label for="amount">Dokument przyjęcia</label>
                                     <input type="number" min="0" name="amount"
@@ -27,7 +27,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="longdesc">Komentarz</label>
@@ -73,6 +72,7 @@
                     <div class="col-md-6 p-3">
                         <button type="submit" class="btn btn-primary mr-4">Potwierdź</button>
                         <a href="{{ route('products.index') }}" class="btn btn-light">Anuluj</a>
+                        <a href="{{ route('shipmentdetails.index') }}" class="btn btn-light">details</a>
                     </div>
                 </div>
             </form>

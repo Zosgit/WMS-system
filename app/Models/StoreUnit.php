@@ -22,7 +22,7 @@ class StoreUnit extends Model
         $this->ean = $label;
         $this->storeunittype_id = $type;
         $this->su_multi = False;
-        $this->status_id = 101;
+        $this->status_id = 202;
         $this->save();
         return true;
     }
@@ -39,7 +39,6 @@ class StoreUnit extends Model
             $model->created_by = auth()->id();
         });
     }
-
 
     /*
         $next_serial_available - aktualna wartość z licznika - do pokazania
@@ -106,10 +105,7 @@ class StoreUnit extends Model
         if($len == 18){
           return ($check_digit == intval(substr($barcode,17,1)));
         }
-      }
-
-
+    }
 }
-
 
 // $ok = $this->generate_sscc_barcode(127,0,5905468,127);

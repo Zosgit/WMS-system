@@ -11,8 +11,8 @@ class StoreUnitController extends Controller
 {
     public function index()
     {
-        $su = new StoreUnit();
-        $su->CreateUnit(1);
+        //$su = new StoreUnit();
+        //$ean = $su->CreateUnit(1);
 
         $storeunits = StoreUnit::whereNotNull('location_id')->get();
         return view('storeunits.index', compact('storeunits'));
@@ -21,26 +21,22 @@ class StoreUnitController extends Controller
     public function create()
     {
         return view('storeunits.create',['store_unit_types' => StoreUnitType::all(),
-                                        'locations' => Location::getLocationFree(),
-                                        'status' => Status::getObject('SU')]);
+                                        'locations' => Location::getLocationFree()]);
     }
 
     public function store(Request $request)
     {
-        //dd($request);
         $validatedAttributes = $request->validate ([
-            'storeunittype_id' => 'required',
-
+            'storeunittype_id' => 'required'
         ]);
         $validatedAttributes['su_multi'] = $request->get('su_multi') == 'on' ? 1 : 0;
-        $validatedAttributes['ean'] = 'blala';
+        $su = new StoreUnit();
+        $ean = $su->CreateUnit($validatedAttributes['storeunittype_id']);
+        dd($request);
 
-       StoreUnit::create($validatedAttributes);
-
+       //StoreUnit::create($validatedAttributes);
         //StoreUnit::updateOrCreate(['id' => $request->id], $request->except('id'));
-
-
-        return redirect()->route('storeunits.index')->with('success', 'Opakowanie dodane poprawnie!');
+        //return redirect()->route('storeunits.index')->with('success', 'Opakowanie dodane poprawnie!');
 
     }
     public function edit(Storeunit $storeunit)
