@@ -10,10 +10,10 @@
                 <use xlink:href="icons/coreui.svg#cil-save"></use>
             </svg> Save</a></div>
         <div class="card-body">
-            <div class="row mb-4">
+            <div class="row mb-4 ml-4">
             <div class="col-sm-4">
                 <h6 class="mb-3">Szczegóły:</h6>
-                <div>Dok: dostawy: <strong>zazaza</strong></div>
+                <div>Dok. dostawy: <strong>zazaza</strong></div>
                 <div>Data przyjęcia: <strong>2023-11-25 12:10:40</strong></div>
                 <div>Status: <strong>Wprowadzony</strong></div>
                 <div>Uwagi: zazaa</div>
@@ -34,7 +34,7 @@
 
             <a href="#"
             class="btn btn-primary float-start px-4 btn-sm">Dodaj pozycję</a>
-            <div class="table-responsive-sm">
+            <div class="table-responsive-sm table-striped">
                 <table class="table table-striped">
                     <thead>
                     <tr>

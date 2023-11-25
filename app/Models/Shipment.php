@@ -12,12 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Shipment extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = [];
+    protected $fillable = ['name_doc', 'nr_doc', 'remarks','holder_id',
+                            'supplier_id', 'status_id', 'created_by' ];
 
 
     public function firm(): BelongsTo
     {
-        return $this->belongsTo(Firm::class, 'firm_id', 'id');
+        return $this->belongsTo(Firm::class, 'holder_id', 'id')->belongsTo(Firm::class, 'supplier_id', 'id');
     }
 
     public function status(): BelongsTo

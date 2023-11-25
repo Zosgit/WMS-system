@@ -9,20 +9,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Firm extends Model
 {
     use HasFactory, SoftDeletes;
-
+    protected $table = 'firms';
     protected $fillable = ['code', 'longdesc', 'tax', 'street',
                          'postcode', 'city', 'notes', 'shipment',
                          'holder', 'delivery', 'created_by'];
 
-    public static function getObject1($holder_id)
+    public static function getHolder($holders)
     {
-        return static::where('holder', $holder_id)->get();
+        return static::where('holder', $holders)->get();
     }
-    public static function getObject2($supplier_id)
+    public static function getSupplier($suppliers)
     {
-        return static::where('delivery', $supplier_id)->get();
+        return static::where('delivery', $suppliers)->get();
     }
-
 
     public function user(): BelongsTo
     {

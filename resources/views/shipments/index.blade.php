@@ -37,33 +37,42 @@
                     <div class="row p-2 pt-2">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="storearea_id">Dostawca</label>
-                                    <select name="storearea_id" class="form-select form-control @error('storearea_id') is-invalid @enderror" id="storearea_id" required>
+                                <label for="supplier_id">Dostawca</label>
+                                    <select name="supplier_id" class="form-select form-control @error('supplier_id') is-invalid @enderror" id="supplier_id" required>
                                         <option value="">Wybierz</option>
-
-
+                                        @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}"
+                                                    @if (isset($shipment))
+                                                    {{ $shipment->supplier_id == $supplier->id ? 'selected' : '' }}
+                                            @endif>
+                                            {{ $supplier->code }}</option>
+                                            @endforeach
+                                                @error('supplier_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                     </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status_id">Właściciel</label>
-                                    <select name="status_id" class="form-select form-control @error('status_id') is-invalid @enderror" id="status_id" required>
+                                <label for="holder_id">Właściciel</label>
+                                    <select name="holder_id" class="form-select form-control @error('holder_id') is-invalid @enderror" id="holder_id" required>
                                         <option value="">Wybierz</option>
-                                            {{-- @foreach ($product_metrics as $product_metric)
-                                                <option value="{{ $product_metric->id }}"
-                                                    @if (isset($product))
-                                                    {{ $product->productmetric_id == $product_metric->id ? 'selected' : '' }}
-                                            @endif>
-                                            {{ $product_metric->code }}</option>
-                                            @endforeach
+                                        @foreach ($holders as $holder)
+                                        <option value="{{ $holder->id }}"
+                                            @if (isset($shipment))
+                                            {{ $shipment->holder_id == $holder->id ? 'selected' : '' }}
+                                    @endif>
+                                    {{ $holder->code }}</option>
+                                    @endforeach
 
-
-                                                @error('metric_id')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror --}}
+                                        @error('holder_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </select>
                             </div>
                         </div>

@@ -10,10 +10,8 @@ class ShipmentController extends Controller
 {
     public function index()
     {
-        return view('shipments.index',['status_id' => Status::getObject('LOC'),//ZMIENIC NA TE W BAZIE!!!
-                                        'holder_id' => Firm::getObject1('1'),
-                                        'supplier_id' => Firm::getObject2('1')]);
-
+        return view('shipments.index',[ 'suppliers' => Firm::getSupplier('1'),
+                                        'holders' => Firm::getHolder('1')]);
     }
 
     /**
