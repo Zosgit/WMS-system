@@ -153,8 +153,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="delivery">Blokada wydania</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="delivery" name="delivery">
+                        <label class="form-check-label" for="customer">Blokada wydania</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="customer" name="customer">
                     </div>
                 </div>
             </div>

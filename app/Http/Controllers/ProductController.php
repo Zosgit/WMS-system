@@ -37,7 +37,7 @@ class ProductController extends Controller
             'ean' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
 
         Product::create($validatedAttributes);
         //dd($validatedAttributes);
@@ -68,7 +68,7 @@ class ProductController extends Controller
         ]);
 
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
         //dd($request);
 
         $product->update($validatedAttributes);

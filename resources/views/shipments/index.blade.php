@@ -10,7 +10,7 @@
                     &nbsp; <b>Nowa dostawa</b>
                 </div>
 
-                <form action="{{ route('shipments.store') }}" class="forms-sample" method="POST">
+                <form action="{{ route('shipmentdetails.index') }}" class="forms-sample" method="POST">
                     @csrf
                 <div class="card-body"><canvas id="myBarChart" width="100%" height="10"></canvas>
                     <div class="row p-2">
@@ -22,7 +22,7 @@
                             <div class="col-md-12 pt-4">
                                 <div class="form-group">
                                     <label for="amount">Dokument przyjęcia</label>
-                                    <input type="number" min="0" name="amount"
+                                    <input type="text"  name="amount"
                                         value="{{ isset($metric) ? $metric->amount : '' }}" class="form-control" id="amount" required>
                                 </div>
                             </div>
@@ -41,17 +41,18 @@
                                     <select name="supplier_id" class="form-select form-control @error('supplier_id') is-invalid @enderror" id="supplier_id" required>
                                         <option value="">Wybierz</option>
                                         @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}"
-                                                    @if (isset($shipment))
-                                                    {{ $shipment->supplier_id == $supplier->id ? 'selected' : '' }}
-                                            @endif>
-                                            {{ $supplier->code }}</option>
-                                            @endforeach
-                                                @error('supplier_id')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                        <option value="{{ $supplier->id }}"
+                                            @if (isset($shipment))
+                                            {{ $shipment->supplier_id == $supplier->id ? 'selected' : '' }}
+                                    @endif>
+                                    {{ $supplier->code }}</option>
+                                    @endforeach
+
+                                        @error('supplier_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </select>
                             </div>
                         </div>

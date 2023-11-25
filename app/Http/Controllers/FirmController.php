@@ -31,7 +31,7 @@ class FirmController extends Controller
             'notes' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
         $validatedAttributes['holder'] = $request->get('holder') == 'on' ? 1 : 0;
 
        // dd($validatedAttributes);
@@ -58,7 +58,7 @@ class FirmController extends Controller
             'notes' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
         $validatedAttributes['holder'] = $request->get('holder') == 'on' ? 1 : 0;
 
         $firm->update($validatedAttributes);

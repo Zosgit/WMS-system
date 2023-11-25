@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['code', 'longdesc', 'producttype_id', 'size_x',
                         'size_y', 'size_z', 'weight', 'ean', 'metric_id',
-                        'shipment', 'delivery', 'created_by'];
+                        'shipment', 'customer', 'created_by'];
 
 
     public function producttype(): BelongsTo

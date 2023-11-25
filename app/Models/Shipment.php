@@ -18,12 +18,7 @@ class Shipment extends Model
 
     public function firm(): BelongsTo
     {
-        return $this->belongsTo(Firm::class, 'holder_id', 'id')->belongsTo(Firm::class, 'supplier_id', 'id');
-    }
-
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(Status::class, 'status_id', 'id');
+        return $this->belongsTo(Firm::class, 'supplier_id', 'id')->belongsTo(Firm::class, 'holder_id', 'id');
     }
 
     public function user(): BelongsTo

@@ -12,7 +12,7 @@ class Firm extends Model
     protected $table = 'firms';
     protected $fillable = ['code', 'longdesc', 'tax', 'street',
                          'postcode', 'city', 'notes', 'shipment',
-                         'holder', 'delivery', 'created_by'];
+                         'holder', 'customer', 'created_by'];
 
     public static function getHolder($holders)
     {
@@ -20,7 +20,7 @@ class Firm extends Model
     }
     public static function getSupplier($suppliers)
     {
-        return static::where('delivery', $suppliers)->get();
+        return static::where('shipment', $suppliers)->get();
     }
 
     public function user(): BelongsTo
