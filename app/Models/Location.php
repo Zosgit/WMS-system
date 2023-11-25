@@ -21,6 +21,10 @@ class Location extends Model
         return $this->where('storearea_id', $store_areas)->where('status_id', $status)->count();
     }
 
+    public static function getLocationFree()
+    {
+        return static::where('status_id', 202)->get();
+    }
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

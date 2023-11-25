@@ -21,7 +21,7 @@ class StoreUnitController extends Controller
     public function create()
     {
         return view('storeunits.create',['store_unit_types' => StoreUnitType::all(),
-                                        'locations' => Location::all(),
+                                        'locations' => Location::getLocationFree(),
                                         'status' => Status::getObject('SU')]);
     }
 
@@ -30,12 +30,16 @@ class StoreUnitController extends Controller
         //dd($request);
         $validatedAttributes = $request->validate ([
             'storeunittype_id' => 'required',
-            'location_id' => 'required',
-            'status_id' => 'required'
+
         ]);
         $validatedAttributes['su_multi'] = $request->get('su_multi') == 'on' ? 1 : 0;
+        $validatedAttributes['ean'] = 'blala';
 
-        StoreUnit::updateOrCreate(['id' => $request->id], $request->except('id'));
+       StoreUnit::create($validatedAttributes);
+
+        //StoreUnit::updateOrCreate(['id' => $request->id], $request->except('id'));
+
+
         return redirect()->route('storeunits.index')->with('success', 'Opakowanie dodane poprawnie!');
 
     }

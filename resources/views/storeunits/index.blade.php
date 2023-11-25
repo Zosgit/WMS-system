@@ -14,8 +14,6 @@
                 <tr>
                     <th scope="col">Rodzaj opakowania</th>
                     <th scope="col">EAN opakowania</th>
-                    <th scope="col">Lokalizacja</th>
-                    <th scope="col">status</th>
                     <th scope="col"> </th>
                 </tr>
                 </thead>
@@ -24,8 +22,6 @@
                     <tr>
                         <td>{{ $storeunit->storeunittype->code ?? '' }}</td>
                         <td>{{ $storeunit->ean }}</td>
-                        <td>{{ $storeunit->location->ean ?? '' }}</td>
-                        <td>{{ $storeunit->status->code ?? '' }}</td>
                         <td><a href="{{ route('storeunits.edit', ['storeunit' => $storeunit]) }}">
                             <svg class="icon icon-lg">
                                 <use xlink:href="{{ asset('icons/coreui.svg#cil-color-border') }}"></use>
