@@ -11,7 +11,8 @@ class ShipmentDetailController extends Controller
      */
     public function index()
     {
-        return view('shipmentdetails.index');
+        $nr_doc='d';
+        return view('shipmentdetails.index', compact('nr_doc'));
     }
 
     /**

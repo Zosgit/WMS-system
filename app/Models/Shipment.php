@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Status;
 use App\Models\Firm;
+use App\Models\ShipmentDetail;
 use App\Models\ProductMetric;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
