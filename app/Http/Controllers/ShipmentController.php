@@ -10,9 +10,8 @@ class ShipmentController extends Controller
 {
     public function index()
     {
-        $nr_doc='d';
         return view('shipments.index',[ 'suppliers' => Firm::getSupplier('1'),
-                                        'holders' => Firm::getHolder('1'), 'nr_doc']);
+                                        'holders' => Firm::getHolder('1')]);
     }
 
     /**

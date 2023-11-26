@@ -11,7 +11,16 @@ class ShipmentDetailController extends Controller
      */
     public function index()
     {
-        $nr_doc='d';
+        function generujNazweDokumentu($licznikID) {
+            $data = date("Ymd");
+            $nazwaDokumentu = 'D_' . $data . '_' . $licznikID;
+            return $nazwaDokumentu;
+        }
+        $licznikID = 1;
+        $nr_doc = generujNazweDokumentu($licznikID);
+        //echo "Wygenerowana nazwa dokumentu: $nr_doc";
+        $licznikID++;
+
         return view('shipmentdetails.index', compact('nr_doc'));
     }
 
