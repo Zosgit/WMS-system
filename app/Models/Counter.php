@@ -20,4 +20,26 @@ class Counter extends Model
         $temp->update();
         return $number++;
     }
+    public static function getNumber($doc)
+    {
+        $date = date("Ymd");
+
+        switch ($doc) {
+           case 'DOSTAWA':
+                $type = 'D';
+                $counter = 2;
+                break;
+           case 'WYDANIE':
+                $type = 'W';
+                $counter = 3;
+                break;
+           break;
+        default: $type = '';
+        $counter = 0;
+        }
+        $number = Counter::getCounter($counter);
+
+        return $type.'_'.$date.'_'.$number;
+
+    }
 }

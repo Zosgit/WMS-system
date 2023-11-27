@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StoreArea extends Model
+class LogicalArea extends Model
 {
     use HasFactory;
-    protected $table = 'store_areas';
-    protected $fillable = ['code','longdesc'];
+    protected $table = 'logical_areas';
+    protected $fillable = ['code', 'longdesc'];
 }

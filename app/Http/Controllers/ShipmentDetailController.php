@@ -2,47 +2,62 @@
 
 namespace App\Http\Controllers;
 use App\Models\ShipmentDetail;
+use App\Models\Shipment;
+use App\Models\Product;
+use App\Models\LogicalArea;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class ShipmentDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Shipment $shipment)
     {
-        function generujNazweDokumentu($licznikID) {
-            $data = date("Ymd");
-            $nazwaDokumentu = 'D_' . $data . '_' . $licznikID;
-            return $nazwaDokumentu;
+        dd($shipment);
+        $status_id = $shipment->status_id;
+        $ship_id = $shipment->id;
+
+        if ($status_id <> 401)
+        {
+            abort(404);
         }
-        $licznikID = 1;
-        $nr_doc = generujNazweDokumentu($licznikID);
-        //echo "Wygenerowana nazwa dokumentu: $nr_doc";
-        $licznikID++;
 
-        return view('shipmentdetails.index', compact('nr_doc'));
+
+        $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
+       dd($shipmentdetails);
+
+        return view('shipmentdetails.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Shipment $shipment)
     {
-        //
+        $products = Product::getShipment();
+        $logicalareas = LogicalArea::orderBy('code')->get();
+
+        return view('shipmentdetails.create', ['products' => $products,
+                                                'logicalareas'=> $logicalareas,
+                                                'shipment' => $shipment]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request,Shipment $shipment)
     {
-        //
+        $validatedAttributes = $request->validate ([
+            'product_id' => 'required',
+            'logical_area_id' => 'required',
+            'quantity' => 'required',
+            'expiration_at' => '',
+            'serial_nr' => '',
+        ]);
+
+        $validatedAttributes['ship_id'] = $shipment->id;
+
+        dd($validatedAttributes);
+
+        ShipmentDetail::create($validatedAttributes);
+        //dd($validatedAttributes);
+        //Product::updateOrCreate(['id' => $request->id], $request->except('id'));
+        return redirect()->route('shipmentdetails.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //

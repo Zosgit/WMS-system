@@ -32,6 +32,11 @@ class Product extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
+    public static function getShipment()
+    {
+        return static::where('shipment', 0)->orderby('code','asc')->get();
+    }
+
     public static function booted(){
 
         static::creating(function($model)

@@ -2,7 +2,9 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-header d-flex align-items-center"><div>Dostawa nr: <strong>{{$nr_doc}}</strong></div><a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
+        <div class="card-header d-flex align-items-center"><div>Dostawa nr:
+
+            </div><a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
             <svg class="icon">
                 <use xlink:href="icons/coreui.svg#cil-print"></use>
             </svg> Print</a><a class="btn btn-sm btn-info me-1 d-print-none" href="#">
@@ -32,8 +34,7 @@
             </div>
             </div>
 
-            <a href="#"
-            class="btn btn-primary float-start px-4 btn-sm">Dodaj pozycję</a>
+            <a href="{{ route('shipmentdetails.create') }}" class="btn btn-primary float-start px-4 btn-sm">Dodaj pozycję</a>
             <div class="table-responsive-sm table-striped">
                 <table class="table table-striped">
                     <thead>
@@ -48,8 +49,17 @@
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach($shipmentdetails as $shipmentdetail)
+                            <tr>
+                                <td>{{ $shipmentdetail->product->code }}</td>
+                                <td>{{ $shipmentdetail->serial_nr }}</td>
+                                <td>{{ $shipmentdetail->expiration_at}}</td>
+                                <td>{{ $shipmentdetail->producttype->code }}</td>
+                                <td>{{ $shipmentdetail->quantity}}</td>
 
-                    </tbody>
+                            </tr>
+                        @endforeach
+                        </tbody>
                 </table>
             </div>
         </div>
