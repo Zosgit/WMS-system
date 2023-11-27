@@ -22,15 +22,15 @@
             </div>
             <div class="col-sm-4">
                 <h6 class="mb-3">Dostarczył:</h6>
-                <div><strong>{{ $shipment->firm->code  ?? '' }}</strong></div>
-                <div>Firma Media Expert</div>
-                <div>39-300 - Mielec</div>
+                <div><strong>{{ $shipment->supplier->code  ?? '' }}</strong></div>
+                <div>{{ $shipment->supplier->longdesc  ?? '' }}</div>
+                <div>{{ $shipment->supplier->postcode  ?? '' }} - {{ $shipment->supplier->city  ?? '' }}</div>
             </div>
             <div class="col-sm-4">
                 <h6 class="mb-3">Właściciel:</h6>
-                <div><strong>X-KOM</strong></div>
-                <div>Firma X-KOM</div>
-                <div>39-300 - Mielec</div>
+                <div><strong>{{ $shipment->holder->code  ?? '' }}</strong></div>
+                <div>{{ $shipment->holder->longdesc  ?? '' }}</div>
+                <div>{{ $shipment->holder->postcode  ?? '' }} - {{ $shipment->holder->city  ?? '' }}</div>
             </div>
             </div>
 
