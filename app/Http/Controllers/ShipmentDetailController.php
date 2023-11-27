@@ -70,20 +70,32 @@ class ShipmentDetailController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Shipment $shipment, ShipmentDetail $shipmentdetails)
     {
-        //
+        return view('shipmentdetails.edit', ['products' => $products,
+                                            'logicalareas'=> $logicalareas,
+                                            'shipment' => $shipment,
+                                            'shipmentdetails'=>$shipmentdetails]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request,Shipment $shipment)
     {
-        //
+        $validatedAttributes = $request->validate ([
+            'product_id' => 'required',
+            'logical_area_id' => 'required',
+            'quantity' => 'required',
+            'expiration_at' => '',
+            'serial_nr' => '',
+        ]);
+        $product = Product::findOrFail($validatedAttributes['product_id']);
+
+        $validatedAttributes['ship_id'] = $shipment->id;
+        $validatedAttributes['prod_code'] = $product->code;
+        $validatedAttributes['prod_desc'] = $product->longdesc;
+
+        ShipmentDetail::update($validatedAttributes);
+        //dd($validatedAttributes);
+        return redirect()->route('shipmentdetail.index', ['shipment' => $shipment]);
     }
 
     /**
