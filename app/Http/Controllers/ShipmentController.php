@@ -34,7 +34,7 @@ class ShipmentController extends Controller
         $validatedAttributes['nr_doc'] = Counter::getNumber('DOSTAWA');
 
         $shipment = Shipment::create($validatedAttributes);
-
+        //dd($shipment);
         return redirect()->route('shipmentdetail.create',['shipment'=>$shipment]);
     }
 

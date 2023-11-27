@@ -7,6 +7,7 @@ use App\Models\Shipment;
 use App\Models\Status;
 use App\Models\LogicalArea;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class ShipmentDetail extends Model
@@ -19,7 +20,7 @@ class ShipmentDetail extends Model
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_id', 'id')->belongsTo(Firm::class, 'prod_code', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
     public function shipment(): BelongsTo
     {

@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <div>Dostawa nr: <strong>D_20231126_68</strong></div>
+            <div>Dostawa nr: <strong>{{$shipment->nr_doc}}</strong></div>
         </div>
         <div class="card-body">
             <form action="{{ route('shipmentdetail.store',['shipment'=>$shipment]) }}" class="forms-sample" method="POST">

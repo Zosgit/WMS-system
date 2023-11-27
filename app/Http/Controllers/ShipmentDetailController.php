@@ -12,7 +12,7 @@ class ShipmentDetailController extends Controller
 {
     public function index(Shipment $shipment)
     {
-        dd($shipment);
+        //dd($shipment);
         $status_id = $shipment->status_id;
         $ship_id = $shipment->id;
 
@@ -20,18 +20,25 @@ class ShipmentDetailController extends Controller
         {
             abort(404);
         }
-
-
+        $products = Product::getShipment();
+        $logicalareas = LogicalArea::orderBy('code')->get();
         $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
-       dd($shipmentdetails);
+       // dd($shipmentdetails);
 
-        return view('shipmentdetails.index');
+        return view('shipmentdetails.index',compact('shipment','products','logicalareas','shipmentdetails'));
     }
 
     public function create(Shipment $shipment)
     {
+        $status_id = $shipment->status_id;
+        //$nr_doc = $shipment->$nr_doc;
         $products = Product::getShipment();
         $logicalareas = LogicalArea::orderBy('code')->get();
+
+        if ($status_id <> 401)
+        {
+            abort(404);
+        }
 
         return view('shipmentdetails.create', ['products' => $products,
                                                 'logicalareas'=> $logicalareas,
@@ -47,15 +54,15 @@ class ShipmentDetailController extends Controller
             'expiration_at' => '',
             'serial_nr' => '',
         ]);
+        $product = Product::findOrFail($validatedAttributes['product_id']);
 
         $validatedAttributes['ship_id'] = $shipment->id;
-
-        dd($validatedAttributes);
+        $validatedAttributes['prod_code'] = $product->code;
+        $validatedAttributes['prod_desc'] = $product->longdesc;
 
         ShipmentDetail::create($validatedAttributes);
         //dd($validatedAttributes);
-        //Product::updateOrCreate(['id' => $request->id], $request->except('id'));
-        return redirect()->route('shipmentdetails.index');
+        return redirect()->route('shipmentdetail.index', ['shipment' => $shipment]);
     }
 
     public function show(string $id)

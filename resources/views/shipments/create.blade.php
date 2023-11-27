@@ -81,8 +81,7 @@
 
                     <div class="col-md-6 p-3">
                         <button type="submit" class="btn btn-primary mr-4">Potwierdź</button>
-                        <a href="{{ route('products.index') }}" class="btn btn-light">Anuluj</a>
-
+                        <a href="{{ route('shipments.index') }}" class="btn btn-light">Anuluj</a>
                     </div>
                 </div>
             </form>

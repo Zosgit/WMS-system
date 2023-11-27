@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Status;
 use App\Models\Firm;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Shipment extends Model
 {
@@ -15,9 +16,18 @@ class Shipment extends Model
                             'supplier_id', 'status_id','created_by' ];
 
 
-    public function firm(): BelongsTo
+    // public function firm(): BelongsTo
+    // {
+    //     return $this->belongsTo(Firm::class, 'supplier_id', 'id')->belongsTo(Firm::class, 'holder_id', 'id');
+    // }
+    public function supplier(): BelongsTo
     {
-        return $this->belongsTo(Firm::class, 'supplier_id', 'id')->belongsTo(Firm::class, 'holder_id', 'id');
+        return $this->belongsTo(Firm::class, 'supplier_id', 'id');
+    }
+
+    public function holder(): BelongsTo
+    {
+        return $this->belongsTo(Firm::class, 'holder_id', 'id');
     }
 
     public function user(): BelongsTo

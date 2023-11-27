@@ -23,7 +23,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('shipments.index') }}" target="_top">
-                    Dostawy
+                    Dokumenty przyjęcia
                 </a>
             </li>
             <li class="nav-item">
