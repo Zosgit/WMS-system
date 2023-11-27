@@ -17,8 +17,13 @@
         </a>
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('shipments.create') }}" target="_top">
+                    Nowa dostawa
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('shipments.index') }}" target="_top">
-                    Dokumenty przyjęcia
+                    Dostawy
                 </a>
             </li>
             <li class="nav-item">
