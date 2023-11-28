@@ -40,8 +40,9 @@ Route::middleware('auth')->group(function () {
    Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');
    Route::get('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'create'])->name('shipmentdetail.create');
    Route::post('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'store'])->name('shipmentdetail.store');
-   Route::get('/shipmentdetail/{shipment}/show', [App\Http\Controllers\ShipmentDetailController::class,'show'])->name('shipmentdetail.show');
+   //Route::get('/shipmentdetail/{shipment}/show', [App\Http\Controllers\ShipmentDetailController::class,'show'])->name('shipmentdetail.show');
    Route::get('/shipmentdetail/{shipment}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
+   Route::post('/shipmentdetail/{shipment}/update', [App\Http\Controllers\ShipmentDetailController::class,'update'])->name('shipmentdetail.update');
    Route::delete('/shipmentdetail/{id}/destroy', [App\Http\Controllers\ShipmentDetailController::class,'destroy'])->name('shipmentdetail.destroy');
 
 

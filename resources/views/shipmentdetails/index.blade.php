@@ -7,13 +7,14 @@
     <div class="card">
         <div class="card-header d-flex align-items-center">
             <div>Dostawa nr: <strong>{{$shipment->nr_doc}}</strong></div>
-            <a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
-                <svg class="icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
-                </svg> Drukuj</a><a class="btn btn-sm btn-info me-1 d-print-none" href="#">
-                <svg class="icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-save') }}"></use>
-                </svg> Zapisz</a></div>
+                <a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
+                    <svg class="icon">
+                        <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
+                    </svg> Drukuj</a><a class="btn btn-sm btn-info me-1 d-print-none" href="#">
+                    <svg class="icon">
+                        <use xlink:href="{{ asset('icons/coreui.svg#cil-save') }}"></use>
+                    </svg> Zapisz</a>
+            </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">
             <div class="col-sm-4">
@@ -60,7 +61,7 @@
                                 <td>{{ $shipmentdetail->logical_area_id}}</td>
                                 <td>{{ $shipmentdetail->product->producttype->code ?? '' }}</td>
                                 <td>{{ $shipmentdetail->quantity}}</td>
-                                <td><a href="{{ route('shipmentdetail.edit',['shipment' => $shipment], ['shipmentdetails' => $shipmentdetails]) }}">
+                                <td><a href="{{ route('shipmentdetail.edit',['shipment' => $shipment]) }}">
                                     <svg class="icon icon-lg">
                                         <use xlink:href="{{ asset('icons/coreui.svg#cil-color-border') }}"></use>
                                     </svg>

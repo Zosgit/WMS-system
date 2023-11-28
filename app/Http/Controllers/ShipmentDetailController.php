@@ -23,7 +23,7 @@ class ShipmentDetailController extends Controller
         $products = Product::getShipment();
         $logicalareas = LogicalArea::orderBy('code')->get();
         $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
-       // dd($shipmentdetails);
+       //dd($shipmentdetails);
 
         return view('shipmentdetails.index',compact('shipment','products','logicalareas','shipmentdetails'));
     }
@@ -60,9 +60,9 @@ class ShipmentDetailController extends Controller
         $validatedAttributes['prod_code'] = $product->code;
         $validatedAttributes['prod_desc'] = $product->longdesc;
 
-        ShipmentDetail::create($validatedAttributes);
+        $shipmentdetails = ShipmentDetail::create($validatedAttributes);
         //dd($validatedAttributes);
-        return redirect()->route('shipmentdetail.index', ['shipment' => $shipment]);
+        return redirect()->route('shipmentdetail.index', ['shipment' => $shipment, 'shipmentdetails' => $shipmentdetails]);
     }
 
     public function show(string $id)
@@ -72,6 +72,9 @@ class ShipmentDetailController extends Controller
 
     public function edit(Shipment $shipment, ShipmentDetail $shipmentdetails)
     {
+        $products = Product::getShipment();
+        $logicalareas = LogicalArea::orderBy('code')->get();
+        dd($shipmentdetails);
         return view('shipmentdetails.edit', ['products' => $products,
                                             'logicalareas'=> $logicalareas,
                                             'shipment' => $shipment,
@@ -93,9 +96,12 @@ class ShipmentDetailController extends Controller
         $validatedAttributes['prod_code'] = $product->code;
         $validatedAttributes['prod_desc'] = $product->longdesc;
 
+        dd($shipment);
+
         ShipmentDetail::update($validatedAttributes);
         //dd($validatedAttributes);
-        return redirect()->route('shipmentdetail.index', ['shipment' => $shipment]);
+        //return redirect()->route('shipmentdetail.index', ['shipment' => $shipment,
+        //                                                'shipmentdetails' => $shipmentdetails] );
     }
 
     /**

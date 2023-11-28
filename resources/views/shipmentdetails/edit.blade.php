@@ -6,7 +6,7 @@
             <div>Dostawa nr: <strong>{{$shipment->nr_doc}}</strong></div>
         </div>
         <div class="card-body">
-            <form action="{{ route('shipmentdetail.store',['shipment'=>$shipment], ['shipmentdetails'=>$shipmentdetails]) }}" class="forms-sample" method="POST">
+            <form action="{{ route('shipmentdetail.update',['shipment'=>$shipment]) }}" class="forms-sample" method="POST">
                 @csrf
                 <div class="row p-2">
                     <div class="col-md-12">
