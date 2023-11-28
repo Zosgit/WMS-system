@@ -3,13 +3,23 @@
 
     <div class="card mb-4">
         <div class="card-header">
-            <b>Lista opakowań</b>
-                <a href="{{ route('shipments.create') }}"
-                    class="btn btn-primary float-end px-4 btn-sm">Dodaj</a>
+            <b>Lista dostaw</b>
         </div>
 
         <div class="card-body">
+            <div class="table-responsive-sm table-striped mt-2">
+                <table class="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th>Indeks</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

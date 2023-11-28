@@ -6,8 +6,9 @@
             <div>Dostawa nr: <strong>{{$shipment->nr_doc}}</strong></div>
         </div>
         <div class="card-body">
-            <form action="{{ route('shipmentdetail.update',['shipment'=>$shipment]) }}" class="forms-sample" method="POST">
+            <form action="{{ route('shipmentdetail.update',['shipment'=>$shipment, 'shipmentdetail' => $shipmentdetail]) }}" class="forms-sample" method="POST">
                 @csrf
+                @method('put')
                 <div class="row p-2">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -36,14 +37,14 @@
                         <div class="form-group">
                             <label for="serial_nr">Numer seryjny</label>
                             <input type="text" name="serial_nr"
-                                value="{{$shipmentdetails->serial_nr}}" class="form-control " id="serial_nr">
+                                value="{{$shipmentdetail->serial_nr}}" class="form-control " id="serial_nr">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="expiration_at">Data ważności</label>
                             <input type="date" name="expiration_at"
-                                value="{{$shipmentdetails->expiration_at}}" class="form-control " id="expiration_at">
+                                value="{{$shipmentdetail->expiration_at}}" class="form-control " id="expiration_at">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -73,7 +74,7 @@
                         <div class="form-group">
                             <label for="quantity">Ilość</label>
                             <input type="number" min="0" name="quantity"
-                                value="{{$shipmentdetails->quantity}}" class="form-control " id="quantity" required>
+                                value="{{$shipmentdetail->quantity}}" class="form-control " id="quantity" required>
 
                             </div>
                     </div>
@@ -81,14 +82,14 @@
                         <div class="form-group">
                             <label for="remarks">Komentarz</label>
                             <input type="text" name="remarks"
-                                value="{{$shipmentdetails->remarks}}" class="form-control " id="remarks">
+                                value="{{$shipmentdetail->remarks}}" class="form-control " id="remarks">
 
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 p-3">
                     <button type="submit" class="btn btn-primary mr-4">Dopisz</button>
-                    <a href="{{ route('shipmentdetail.index',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
+                    <a href="{{ route('shipmentdetail.show',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
                 </div>
 
             </form>

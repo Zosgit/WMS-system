@@ -41,9 +41,10 @@ class ShipmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Shipment $shipment)
     {
-        //
+        dd($shipment);
+        return view('shipments.index');
     }
 
     /**

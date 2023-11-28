@@ -88,7 +88,7 @@
                 </div>
                 <div class="col-md-6 p-3">
                     <button type="submit" class="btn btn-primary mr-4">Dopisz</button>
-                    <a href="{{ route('shipmentdetail.index',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
+                    <a href="{{ route('shipmentdetail.show',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
                 </div>
 
             </form>
