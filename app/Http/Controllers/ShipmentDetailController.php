@@ -126,4 +126,16 @@ class ShipmentDetailController extends Controller
         return redirect()->route('shipmentdetail.show', ['shipment' => $shipment])->with('success', 'Shipment Detail deleted successfully');
     }
 
+    public function sendcontrol($id)
+    {
+        $shipment = Shipment::findorfail($id);
+        $data = [
+            'status_id' => 403,
+        ];
+        $shipment->update($data);
+        return redirect()->route('controls.index')->with('success', 'Dokument przekazany do kontroli :)');
+
+
+    }
+
 }

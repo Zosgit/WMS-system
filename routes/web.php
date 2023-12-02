@@ -33,9 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/storeunits', App\Http\Controllers\StoreUnitController::class);
     Route::resource('/locations', App\Http\Controllers\LocationController::class);
     Route::resource('/shipments', App\Http\Controllers\ShipmentController::class);
-    //Route::resource('/shipmentdetails', App\Http\Controllers\ShipmentDetailController::class);
-
-    //Route::get('/shipments/{shipment}', [App\Http\Controllers\ShipmentController::class,'show'])->name('shipmentdetail.show');
+    Route::resource('/controls', App\Http\Controllers\ControlController::class);
 
    // pozycje dostawy
    Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');
@@ -45,7 +43,18 @@ Route::middleware('auth')->group(function () {
    Route::get('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
    Route::put('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/update', [App\Http\Controllers\ShipmentDetailController::class, 'update'])->name('shipmentdetail.update');
    Route::delete('/shipment/{shipment}/shipmentdetail/{shipmentdetail}', [App\Http\Controllers\ShipmentDetailController::class, 'destroy'])->name('shipmentdetail.destroy');
+   Route::get('/shipmentdetail/{id}/sendcontrol', [App\Http\Controllers\ShipmentDetailController::class,'sendcontrol'])->name('shipmentdetail.send');
 
+    // pozycje kontroli
+    //Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');
+    //Route::get('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'create'])->name('shipmentdetail.create');
+    //Route::post('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'store'])->name('shipmentdetail.store');
+    //Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'show'])->name('shipmentdetail.show');
+    //Route::get('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
+    //Route::put('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/update', [App\Http\Controllers\ShipmentDetailController::class, 'update'])->name('shipmentdetail.update');
+    //Route::delete('/shipment/{shipment}/shipmentdetail/{shipmentdetail}', [App\Http\Controllers\ShipmentDetailController::class, 'destroy'])->name('shipmentdetail.destroy');
+
+    // etykieta lokalizacji multi
     Route::get('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'create'])->name('locations.createmulti');
     Route::post('/storemulti', [\App\Http\Controllers\LocationMultiController::class,'store'])->name('locations.storemulti');
     Route::post('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'index'])->name('locations.indexmulti');

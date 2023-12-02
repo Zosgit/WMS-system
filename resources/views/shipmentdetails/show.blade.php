@@ -11,7 +11,7 @@
                     <svg class="icon">
                         <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
                     </svg> Drukuj</a>
-                    <a class="btn btn-sm btn-info me-1 d-print-none" href="#"> Do kontroli</a>
+                    <a class="btn btn-sm btn-info me-1 d-print-none" href="{{ route('shipmentdetail.send',['id' => $shipment->id]) }}"> Do kontroli</a>
             </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">

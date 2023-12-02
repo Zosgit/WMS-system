@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" target="_top">
+                <a class="nav-link" href="{{ route('controls.index') }}" target="_top">
                     Kontrola dostawy
                 </a>
             </li>
