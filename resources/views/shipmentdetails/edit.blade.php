@@ -87,9 +87,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 p-3">
-                    <button type="submit" class="btn btn-primary mr-4">Dopisz</button>
-                    <a href="{{ route('shipmentdetail.show',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
+
+                <div class="row p-1">
+                    <div class="col-md-6 p-3">
+                        <button type="submit" class="btn btn-primary mr-4">Dopisz</button>
+                        <a href="{{ route('shipmentdetail.show',['shipment'=>$shipment])}}" class="btn btn-light">Anuluj</a>
+                    </div>
+                    <div class="col-md-6 p-3">
+                        <a href="#"  data-coreui-toggle="modal" data-coreui-target="#delete{{ $shipmentdetail->id }}"
+                            class="btn btn-danger float-end text-white px-4 ">Usuń
+                        </a>
+                    </div>
                 </div>
 
             </form>

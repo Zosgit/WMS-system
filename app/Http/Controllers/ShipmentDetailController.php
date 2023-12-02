@@ -10,14 +10,9 @@ use Illuminate\Http\Request;
 
 class ShipmentDetailController extends Controller
 {
-    public function index(Shipment $shipment)
+    public function index()
     {
-        dd($shipment);
-
-        $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
-       //dd($shipmentdetails);
-
-        return view('shipmentdetails.index',compact('shipment','shipmentdetails'));
+        //
     }
 
     public function create(Shipment $shipment)
@@ -76,7 +71,7 @@ class ShipmentDetailController extends Controller
     }
 
     public function edit(Shipment $shipment, ShipmentDetail $shipmentdetail)
-{
+    {
         $status_id = $shipment->status_id;
 
         if ($status_id <> 401) {
@@ -90,30 +85,8 @@ class ShipmentDetailController extends Controller
                                             'logicalareas' => $logicalareas,
                                             'shipment' => $shipment,
                                             'shipmentdetail' => $shipmentdetail]);
-}
+    }
 
-    // public function update(Request $request,Shipment $shipment)
-    // {
-    //     $validatedAttributes = $request->validate ([
-    //         'product_id' => 'required',
-    //         'logical_area_id' => 'required',
-    //         'quantity' => 'required',
-    //         'expiration_at' => '',
-    //         'serial_nr' => '',
-    //     ]);
-    //     $product = Product::findOrFail($validatedAttributes['product_id']);
-
-    //     $validatedAttributes['ship_id'] = $shipment->id;
-    //     $validatedAttributes['prod_code'] = $product->code;
-    //     $validatedAttributes['prod_desc'] = $product->longdesc;
-
-    //     //dd($shipment);
-
-    //     $shipmentdetail -> update($validatedAttributes);
-    //     //dd($validatedAttributes);
-    //     return redirect()->route('shipmentdetail.show', ['shipment' => $shipment,
-    //                                                     'shipmentdetails' => $shipmentdetail] );
-    // }
     public function update(Request $request, Shipment $shipment, ShipmentDetail $shipmentdetail)
     {
         $status_id = $shipment->status_id;
@@ -141,12 +114,16 @@ class ShipmentDetailController extends Controller
         return redirect()->route('shipmentdetail.show', ['shipment' => $shipment, 'shipmentdetails' => $shipmentdetail]);
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Shipment $shipment, ShipmentDetail $shipmentdetail)
     {
-        //
+        $status_id = $shipment->status_id;
+
+        if ($status_id <> 401) {
+            abort(404);
+        }
+
+        $shipmentdetail->delete();
+        return redirect()->route('shipmentdetail.show', ['shipment' => $shipment])->with('success', 'Shipment Detail deleted successfully');
     }
+
 }

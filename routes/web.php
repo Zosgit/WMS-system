@@ -44,8 +44,7 @@ Route::middleware('auth')->group(function () {
    Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'show'])->name('shipmentdetail.show');
    Route::get('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
    Route::put('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/update', [App\Http\Controllers\ShipmentDetailController::class, 'update'])->name('shipmentdetail.update');
-   Route::delete('/shipmentdetail/{id}/destroy', [App\Http\Controllers\ShipmentDetailController::class,'destroy'])->name('shipmentdetail.destroy');
-
+   Route::delete('/shipment/{shipment}/shipmentdetail/{shipmentdetail}', [App\Http\Controllers\ShipmentDetailController::class, 'destroy'])->name('shipmentdetail.destroy');
 
     Route::get('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'create'])->name('locations.createmulti');
     Route::post('/storemulti', [\App\Http\Controllers\LocationMultiController::class,'store'])->name('locations.storemulti');

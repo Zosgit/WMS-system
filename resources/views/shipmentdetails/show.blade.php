@@ -10,10 +10,8 @@
                 <a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
                     <svg class="icon">
                         <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
-                    </svg> Drukuj</a><a class="btn btn-sm btn-info me-1 d-print-none" href="#">
-                    <svg class="icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-save') }}"></use>
-                    </svg> Zapisz</a>
+                    </svg> Drukuj</a>
+                    <a class="btn btn-sm btn-info me-1 d-print-none" href="#"> Do kontroli</a>
             </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">
@@ -65,8 +63,8 @@
                                     <svg class="icon icon-lg">
                                         <use xlink:href="{{ asset('icons/coreui.svg#cil-color-border') }}"></use>
                                     </svg>
-                                </a>
-                            </td>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
