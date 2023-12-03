@@ -12,33 +12,41 @@ class ControlController extends Controller
 {
     public function index(Shipment $shipment)
     {
-
-        $shipments = Shipment::all();
+        $shipments = Shipment::where('status_id', 403)->get();
         return view('controls.index', compact('shipments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Shipment $shipment)
     {
-        //
+        $status_id = $shipment->status_id;
+        $ship_id = $shipment->id;
+        $locations = Location::getLocationFree();
+
+        if ($status_id <> 403)
+        {
+            abort(404);
+        }
+        $shipmentdetails = ShipmentDetail::where('ship_id', $ship_id)->get();
+        return view('controls.create',compact('shipment','shipmentdetails', 'locations'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Shipment $shipment)
     {
-        //
+        $status_id = $shipment->status_id;
+        $ship_id = $shipment->id;
+        $locations = Location::getLocationFree();
+
+        if ($status_id <> 403)
+        {
+            abort(404);
+        }
+        $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
+        return view('controls.show',compact('shipment','shipmentdetails', 'locations'));
     }
 
     /**
