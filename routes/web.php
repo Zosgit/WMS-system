@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/shipments', App\Http\Controllers\ShipmentController::class);
     Route::resource('/controls', App\Http\Controllers\ControlController::class);
 
+    Route::get('/shipmentdetail/{shipment}/controldetail', [App\Http\Controllers\ControlController::class,'create'])->name('control.create');
+    Route::get('/shipmentdetail/{shipment}/control', [App\Http\Controllers\ControlController::class,'show'])->name('control.show');
+
    // pozycje dostawy
    Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');
    Route::get('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'create'])->name('shipmentdetail.create');

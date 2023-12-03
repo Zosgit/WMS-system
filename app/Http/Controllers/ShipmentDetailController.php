@@ -18,7 +18,6 @@ class ShipmentDetailController extends Controller
     public function create(Shipment $shipment)
     {
         $status_id = $shipment->status_id;
-        //$nr_doc = $shipment->$nr_doc;
         $products = Product::getShipment();
         $logicalareas = LogicalArea::orderBy('code')->get();
 

@@ -16,4 +16,5 @@ class Status extends Model
     {
         return static::where('objectname', $type)->get();
     }
+
 }
