@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Status;
 use App\Models\Firm;
+use App\Models\Control;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shipment extends Model
 {
@@ -28,6 +30,11 @@ class Shipment extends Model
     public function holder(): BelongsTo
     {
         return $this->belongsTo(Firm::class, 'holder_id', 'id');
+    }
+
+    public function shipcontrol(): HasMany
+    {
+        return $this->belongsTo(Control::class, 'ship_id', 'id');
     }
 
     public function user(): BelongsTo

@@ -25,6 +25,13 @@ class Location extends Model
     {
         return static::where('status_id', 202)->get();
     }
+
+    public static function getLocationControl()
+    {
+        return static::where('status_id', 202)->where('storearea_id',1)->get();
+    }
+
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

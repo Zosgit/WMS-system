@@ -34,9 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/locations', App\Http\Controllers\LocationController::class);
     Route::resource('/shipments', App\Http\Controllers\ShipmentController::class);
     Route::resource('/controls', App\Http\Controllers\ControlController::class);
+    Route::post('/controls/{id}/store', [App\Http\Controllers\ControlController::class,'store'])->name('control.store');
 
-    Route::get('/shipmentdetail/{shipment}/controldetail', [App\Http\Controllers\ControlController::class,'create'])->name('control.create');
-    Route::get('/shipmentdetail/{shipment}/control', [App\Http\Controllers\ControlController::class,'show'])->name('control.show');
+    Route::get('/controls/{id}/create', [App\Http\Controllers\ControlController::class,'create'])->name('control.create');
+    Route::get('/shipmentdetail/{id}/control', [App\Http\Controllers\ControlController::class,'show'])->name('control.show');
 
    // pozycje dostawy
    Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');

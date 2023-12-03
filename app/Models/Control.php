@@ -14,7 +14,12 @@ class Control extends Model
     protected $fillable = ['ship_id', 'remarks', 'location_id',
                          'status_id', 'created_by'];
 
-    public function location(): BelongsTo
+    public static function getControl($id)
+    {
+        return static::where('ship_id', $id) ->get();
+    }
+
+    public function controllocation(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'location_id', 'id');
     }
@@ -39,7 +44,7 @@ class Control extends Model
         static::creating(function($model)
         {
             $model->created_by = auth()->id();
-            $model->status_id = 403;
+            $model->status_id = 404;
         });
     }
 }
