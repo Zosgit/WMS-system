@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Status;
+use App\Models\LogicalArea;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\OrderDetail;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderDetailController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
@@ -33,9 +35,19 @@ class OrderDetailController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        //
+        //dd($order);
+        $status_id = $order->status_id;
+        $order_id = $order->id;
+
+        if ($status_id <> 501)
+        {
+            abort(404);
+        }
+
+        $orderdetails = OrderDetail::where('order_id',$order_id)->get();
+        return view('orderdetails.show',compact('order','orderdetails'));
     }
 
     /**

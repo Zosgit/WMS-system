@@ -21,7 +21,7 @@
                             <td>{{ $order->order_nr }}</td>
                             <td>{{ $order->created_at }}</td>
                             <td>{{ $order->status->code }}</td>
-                            <td><a href="#">
+                            <td><a href="{{ route('orderdetail.show',['order'=>$order])}}">
                                 <svg class="icon icon-lg">
                                     <use xlink:href="{{ asset('icons/coreui.svg#cil-arrow-right') }}"></use>
                                 </svg>

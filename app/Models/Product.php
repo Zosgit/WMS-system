@@ -36,6 +36,10 @@ class Product extends Model
     {
         return static::where('shipment', 0)->orderby('code','asc')->get();
     }
+    public static function getCustomer()
+    {
+        return static::where('customer', 0)->orderby('code','asc')->get();
+    }
 
     public static function booted(){
 

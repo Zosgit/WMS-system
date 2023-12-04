@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +8,7 @@ use App\Models\Status;
 use App\Models\LogicalArea;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Order;
 
 class OrderDetail extends Model
 {
@@ -22,27 +22,26 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(LogicalArea::class, 'logical_area_id', 'id');
     }
-
     public function shipment(): BelongsTo
     {
         return $this->belongsTo(Shipment::class, 'shipment_id', 'id');
     }
-
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
-
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
-
     public static function booted(){
 
         static::creating(function($model)

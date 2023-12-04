@@ -37,9 +37,6 @@ class OrderController extends Controller
         return redirect()->route('orders.index',['order'=>$order]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
