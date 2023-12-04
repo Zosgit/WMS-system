@@ -41,6 +41,7 @@ class Shipment extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
