@@ -16,12 +16,12 @@ class Order extends Model
     protected $fillable = ['external_nr', 'order_nr', 'remarks','owner_id',
                         'firm_id', 'realization_at', 'progress', 'status_id','created_by' ];
 
-    public function firm(): BelongsTo
+    public function getCustomer(): BelongsTo
     {
         return $this->belongsTo(Firm::class, 'firm_id', 'id');
     }
 
-    public function owner(): BelongsTo
+    public function getHolder(): BelongsTo
     {
         return $this->belongsTo(Firm::class, 'owner_id', 'id');
     }

@@ -23,6 +23,10 @@ class Firm extends Model
     {
         return static::where('shipment', $suppliers)->get();
     }
+    public static function getCustomer($customers)
+    {
+        return static::where('customer', $customers)->get();
+    }
 
     public function user(): BelongsTo
     {

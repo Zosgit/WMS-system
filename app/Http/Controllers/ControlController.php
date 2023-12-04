@@ -45,9 +45,6 @@ class ControlController extends Controller
 
         Control::create($validatedAttributes);
         return redirect()->route('controls.index')->with('success', 'Kontrahent dodany poprawnie!');
-
-
-
     }
 
     public function show($id)

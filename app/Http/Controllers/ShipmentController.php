@@ -30,10 +30,7 @@ class ShipmentController extends Controller
             'name_doc' => 'required|max:50',
             'remarks' => ''
         ]);
-
-
         $validatedAttributes['nr_doc'] = Counter::getNumber('DOSTAWA');
-
         $shipment = Shipment::create($validatedAttributes);
         //dd($shipment);
         return redirect()->route('shipmentdetail.create',['shipment'=>$shipment]);

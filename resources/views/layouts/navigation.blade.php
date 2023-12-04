@@ -42,7 +42,12 @@
         </a>
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
-                <a class="nav-link" href="#" target="_top">
+                <a class="nav-link" href="{{ route('orders.create') }}" target="_top">
+                    Nowe wydanie
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('orders.index') }}" target="_top">
                     Dokumenty wydania
                 </a>
             </li>
@@ -54,23 +59,14 @@
         </ul>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('about') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-clipboard') }}"></use>
             </svg>
             Kompletacja
         </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('about') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-industry') }}"></use>
-            </svg>
-            Inwentaryzacja
-        </a>
-    </li>
+    </li> --}}
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('firms.index') }}">
