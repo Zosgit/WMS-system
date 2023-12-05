@@ -16,25 +16,44 @@ class OrderDetailController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Order $order)
     {
-        //
+        //dd($order);
+        $status_id = $order->status_id;
+        $products = Product::getCustomer();
+        $logicalareas = LogicalArea::orderBy('code')->get();
+
+        if ($status_id <> 501)
+        {
+            abort(404);
+        }
+
+        return view('orderdetails.create', ['products' => $products,
+                                            'logicalareas'=> $logicalareas,
+                                            'order' => $order]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, Order $order)
     {
-        //
+        //dd($order);
+        $validatedAttributes = $request->validate ([
+            'product_id' => 'required',
+            'logical_area_id' => 'required',
+            'quantity' => 'required',
+            'expiration_at' => '',
+            'serial_nr' => '',
+        ]);
+        $product = Product::findOrFail($validatedAttributes['product_id']);
+
+        $validatedAttributes['order_id'] = $order->id;
+        $validatedAttributes['prod_code'] = $product->code;
+        $validatedAttributes['prod_desc'] = $product->longdesc;
+
+        $orderdetails = OrderDetail::create($validatedAttributes);
+        //dd($validatedAttributes);
+        return redirect()->route('orderdetail.show', ['order' => $order, 'orderdetails' => $orderdetails]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Order $order)
     {
         //dd($order);
@@ -72,5 +91,16 @@ class OrderDetailController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function sendPicking($id)
+    {
+        $order = Order::findorfail($id);
+        $data = [
+            'status_id' => 503,
+        ];
+        $order->update($data);
+        return redirect()->route('pickings.index')->with('success', 'Dokument przekazany do kompletacji :)');
+
     }
 }

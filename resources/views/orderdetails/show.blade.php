@@ -6,12 +6,12 @@
 <div class="container">
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <div>Dostawa nr: <strong>{{$order->order_nr}}</strong></div>
+            <div>Wydanie nr: <strong>{{$order->order_nr}}</strong></div>
                 <a class="btn btn-sm btn-secondary ms-auto me-1 d-print-none" href="#" onclick="javascript:window.print();">
                     <svg class="icon">
                         <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
                     </svg> Drukuj</a>
-                    {{-- <a class="btn btn-sm btn-info me-1 d-print-none" href="{{ route('shipmentdetail.send',['id' => $shipment->id]) }}"> Do kontroli</a> --}}
+                    <a class="btn btn-sm btn-info me-1 d-print-none" href="{{ route('shipmentdetail.send',['id' => $shipment->id]) }}"> Do kontroli</a>
             </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">
@@ -36,7 +36,7 @@
             </div>
             </div>
 
-            {{-- <a href="{{ route('shipmentdetail.create',['shipment'=>$shipment]) }}" class="btn btn-primary float-start px-4 btn-sm">Dodaj pozycję</a>
+            <a href="{{ route('orderdetails.create',['order'=>$order]) }}" class="btn btn-primary float-start px-4 btn-sm">Dodaj pozycję</a>
             <div class="table-responsive-sm table-striped mt-2">
                 <table class="table table-striped ">
                     <thead>
@@ -51,25 +51,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($shipmentdetails as $shipmentdetail)
+                        @foreach($orderdetails as $orderdetail)
                             <tr>
-                                <td>{{ $shipmentdetail->product->code }}</td>
-                                <td>{{ $shipmentdetail->serial_nr }}</td>
-                                <td>{{ $shipmentdetail->expiration_at}}</td>
-                                <td>{{ $shipmentdetail->logical_area_id}}</td>
-                                <td>{{ $shipmentdetail->product->producttype->code ?? '' }}</td>
-                                <td>{{ $shipmentdetail->quantity}}</td>
-                                <td><a href="{{ route('shipmentdetail.edit',['shipment' => $shipment, 'shipmentdetail' => $shipmentdetail]) }}">
+                                <td>{{ $orderdetail->product->code }}</td>
+                                <td>{{ $orderdetail->serial_nr }}</td>
+                                <td>{{ $orderdetail->expiration_at}}</td>
+                                <td>{{ $orderdetail->logical_area_id}}</td>
+                                <td>{{ $orderdetail->product->producttype->code ?? '' }}</td>
+                                <td>{{ $orderdetail->quantity}}</td>
+                                {{-- <td><a href="{{ route('shipmentdetail.edit',['shipment' => $shipment, 'shipmentdetail' => $shipmentdetail]) }}">
                                     <svg class="icon icon-lg">
                                         <use xlink:href="{{ asset('icons/coreui.svg#cil-color-border') }}"></use>
                                     </svg>
                                     </a>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                         </tbody>
                 </table>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>

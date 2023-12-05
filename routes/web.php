@@ -55,8 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/orders', App\Http\Controllers\OrderController::class);
 
     // Route::get('/shipmentdetail/{shipment}', [App\Http\Controllers\ShipmentDetailController::class,'index'])->name('shipmentdetail.index');
-    // Route::get('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'create'])->name('shipmentdetail.create');
-    // Route::post('/shipmentdetail/{shipment}/create', [App\Http\Controllers\ShipmentDetailController::class,'store'])->name('shipmentdetail.store');
+    Route::get('/orderdetail/{order}/create', [App\Http\Controllers\OrderDetailController::class,'create'])->name('orderdetails.create');
+    Route::post('/orderdetail/{order}/create', [App\Http\Controllers\OrderDetailController::class,'store'])->name('orderdetail.store');
     Route::get('/orderdetail/{order}', [App\Http\Controllers\OrderDetailController::class,'show'])->name('orderdetail.show');
     // Route::get('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
     // Route::put('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/update', [App\Http\Controllers\ShipmentDetailController::class, 'update'])->name('shipmentdetail.update');

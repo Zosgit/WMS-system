@@ -34,7 +34,7 @@ class OrderController extends Controller
         $validatedAttributes['order_nr'] = Counter::getNumber('WYDANIE');
         $order = Order::create($validatedAttributes);
         //dd($order);
-        return redirect()->route('orders.index',['order'=>$order]);
+        return redirect()->route('orderdetails.create',['order'=>$order]);
     }
 
     public function show(string $id)
