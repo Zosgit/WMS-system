@@ -52,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" target="_top">
+                <a class="nav-link" href="{{ route('pickings.index') }}" target="_top">
                     Planowanie kompletacji
                 </a>
             </li>

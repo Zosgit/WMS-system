@@ -31,7 +31,10 @@ class Location extends Model
         return static::where('status_id', 202)->where('storearea_id',1)->get();
     }
 
-
+    public static function getLocationPick()
+    {
+        return static::where('status_id', 202)->where('storearea_id',2)->get();
+    }
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

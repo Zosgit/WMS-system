@@ -11,7 +11,7 @@
                     <svg class="icon">
                         <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
                     </svg> Drukuj</a>
-                    <a class="btn btn-sm btn-info me-1 d-print-none" href="{{ route('shipmentdetail.send',['id' => $shipment->id]) }}"> Do kontroli</a>
+                    <a class="btn btn-sm btn-info me-1 d-print-none" href="{{ route('orderdetail.send',['id' => $order->id]) }}"> Do kompletacji</a>
             </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">
@@ -59,12 +59,12 @@
                                 <td>{{ $orderdetail->logical_area_id}}</td>
                                 <td>{{ $orderdetail->product->producttype->code ?? '' }}</td>
                                 <td>{{ $orderdetail->quantity}}</td>
-                                {{-- <td><a href="{{ route('shipmentdetail.edit',['shipment' => $shipment, 'shipmentdetail' => $shipmentdetail]) }}">
+                                <td><a href="{{ route('orderdetail.edit',['order' => $order, 'orderdetail' => $orderdetail]) }}">
                                     <svg class="icon icon-lg">
                                         <use xlink:href="{{ asset('icons/coreui.svg#cil-color-border') }}"></use>
                                     </svg>
                                     </a>
-                                </td> --}}
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

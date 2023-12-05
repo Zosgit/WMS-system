@@ -69,20 +69,48 @@ class OrderDetailController extends Controller
         return view('orderdetails.show',compact('order','orderdetails'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Order $order, OrderDetail $orderdetail)
     {
-        //
+        $status_id = $order->status_id;
+
+        if ($status_id <> 501) {
+            abort(404);
+        }
+
+        $products = Product::getCustomer();
+        $logicalareas = LogicalArea::orderBy('code')->get();
+
+        return view('orderdetails.edit', ['products' => $products,
+                                            'logicalareas' => $logicalareas,
+                                            'order' => $order,
+                                            'orderdetail' => $orderdetail]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order, OrderDetail $orderdetail)
     {
-        //
+        $status_id = $order->status_id;
+
+        if ($status_id <> 501) {
+            abort(404);
+        }
+
+        $validatedAttributes = $request->validate([
+            'product_id' => 'required',
+            'logical_area_id' => 'required',
+            'quantity' => 'required',
+            'expiration_at' => '',
+            'serial_nr' => '',
+        ]);
+
+        $product = Product::findOrFail($validatedAttributes['product_id']);
+
+        $validatedAttributes['order_id'] = $order->id;
+        $validatedAttributes['prod_code'] = $product->code;
+        $validatedAttributes['prod_desc'] = $product->longdesc;
+
+        $orderdetail->update($validatedAttributes);
+        //dd($orderdetail);
+        return redirect()->route('orderdetail.show', ['order' => $order, 'orderdetail' => $orderdetail]);
     }
 
     /**

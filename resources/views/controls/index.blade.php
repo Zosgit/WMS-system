@@ -29,12 +29,12 @@
                                 @if (isset($shipment->st_control))
                                     <a href="{{ route('control.create',['id'=>$shipment->id])}}">
                                         <svg class="icon icon-lg">
-                                        <use xlink:href="{{ asset('icons/coreui.svg#cil-arrow-right') }}"></use>
+                                        <use xlink:href="{{ asset('icons/coreui.svg#cil-check-alt') }}"></use>
                                     </svg>
                                 @else
                                     <a href="{{ route('control.show',['id'=>$shipment->id])}}">
                                         <svg class="icon icon-lg">
-                                        <use xlink:href="{{ asset('icons/coreui.svg#cil-print') }}"></use>
+                                        <use xlink:href="{{ asset('icons/coreui.svg#cil-arrow-right') }}"></use>
                                     </svg>
                                 @endif
 

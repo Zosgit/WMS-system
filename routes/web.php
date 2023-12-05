@@ -58,11 +58,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/orderdetail/{order}/create', [App\Http\Controllers\OrderDetailController::class,'create'])->name('orderdetails.create');
     Route::post('/orderdetail/{order}/create', [App\Http\Controllers\OrderDetailController::class,'store'])->name('orderdetail.store');
     Route::get('/orderdetail/{order}', [App\Http\Controllers\OrderDetailController::class,'show'])->name('orderdetail.show');
-    // Route::get('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/edit', [App\Http\Controllers\ShipmentDetailController::class,'edit'])->name('shipmentdetail.edit');
-    // Route::put('/shipment/{shipment}/shipmentdetail/{shipmentdetail}/update', [App\Http\Controllers\ShipmentDetailController::class, 'update'])->name('shipmentdetail.update');
+    Route::get('/order/{order}/orderdetail/{orderdetail}/edit', [App\Http\Controllers\OrderDetailController::class,'edit'])->name('orderdetail.edit');
+    Route::put('/order/{order}/orderdetail/{orderdetail}/update', [App\Http\Controllers\OrderDetailController::class, 'update'])->name('orderdetail.update');
     // Route::delete('/shipment/{shipment}/shipmentdetail/{shipmentdetail}', [App\Http\Controllers\ShipmentDetailController::class, 'destroy'])->name('shipmentdetail.destroy');
-    // Route::get('/shipmentdetail/{id}/sendcontrol', [App\Http\Controllers\ShipmentDetailController::class,'sendcontrol'])->name('shipmentdetail.send');
+    Route::get('/orderdetail/{id}/sendpicking', [App\Http\Controllers\OrderDetailController::class,'sendPicking'])->name('orderdetail.send');
 
+    Route::resource('/pickings', App\Http\Controllers\PickingController::class);
+    Route::post('/pickings/{id}/store', [App\Http\Controllers\PickingController::class,'store'])->name('picking.store');
+    Route::get('/pickings/{id}/create', [App\Http\Controllers\PickingController::class,'create'])->name('picking.create');
+    Route::get('/orderdetail/{id}/picking', [App\Http\Controllers\PickingController::class,'show'])->name('picking.show');
 
     // etykieta lokalizacji multi
     Route::get('/createmulti', [\App\Http\Controllers\LocationMultiController::class,'create'])->name('locations.createmulti');
