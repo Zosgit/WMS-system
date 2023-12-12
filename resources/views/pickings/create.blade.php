@@ -6,7 +6,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header d-flex align-items-center">
-            <div>Wydanie nr: <strong>{{$order->order_nr}}</strong></div>
+            <div>Wydanie nr: <strong>{{$order->order_nr }}</strong></div>
         </div>
         <div class="card-body">
             <div class="row mb-4 ml-4">
