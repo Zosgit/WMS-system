@@ -8,10 +8,8 @@ class ProductMetricController extends Controller
 {
     public function index()
     {
-        $productmetrics = ProductMetric::paginate();
-        $productmetricCount = ProductMetric::count();
-
-        return view('productmetrics.index', compact('productmetrics','productmetricCount'));
+        $productmetrics = ProductMetric::orderby('code')->paginate();
+        return view('productmetrics.index', compact('productmetrics'));
     }
 
     public function create()

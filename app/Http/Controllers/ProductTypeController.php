@@ -9,10 +9,8 @@ class ProductTypeController extends Controller
 {
     public function index()
     {
-        $producttypes = ProductType::paginate();
-        $producttypeCount = ProductType::count();
-
-        return view('producttypes.index', compact('producttypes', 'producttypeCount'));
+        $producttypes = ProductType::orderby('code')->paginate();
+        return view('producttypes.index', compact('producttypes'));
     }
 
     public function create()

@@ -6,15 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\ProductMetric;
+use DB;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderby('updated_at','desc')->paginate(100);
-        $productCount = Product::count();
 
-        return view('products.index', compact('products','productCount'));
+        if ( $request->type != null)
+            {
+                if ($request->search != null and $request->type != null) // mamy rodzaj + wartość
+                    {
+                        $products = DB::table('v_products')->where($request->type,'LIKE','%'.$request->search.'%')->orderby('updated_at','desc')->paginate(100);
+                    }
+                else
+                    {
+                        // szukamy pustych
+                        $products = DB::table('v_products')->wherenull($request->type)->orderby('updated_at','desc')->paginate(100);
+                    }
+            }
+        else // pokazuje wszystko
+            {
+                $products = DB::table('v_products')->orderby('updated_at','desc')->paginate(15);
+            }
+
+        return view('products.index', compact('products'));
     }
 
     public function create()
@@ -37,7 +53,7 @@ class ProductController extends Controller
             'ean' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
+        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
 
         Product::create($validatedAttributes);
         //dd($validatedAttributes);
@@ -45,9 +61,10 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Produkt dodany poprawnie!');
     }
 
-    public function edit(Product $product)
+    public function edit($id)
     {
-       // dd($products = Product::find($id));
+        $product = Product::findorfail($id);
+
         return view('products.edit', ['product' => $product,
                                     'product_types' => ProductType::all(),
                                     'product_metrics'=>ProductMetric::all()]);
@@ -68,7 +85,7 @@ class ProductController extends Controller
         ]);
 
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
+        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
         //dd($request);
 
         $product->update($validatedAttributes);
@@ -77,9 +94,12 @@ class ProductController extends Controller
     }
     // należy dodać wpis sprawdzający czy asortyment jest na zapasie.
     //jeżeli jest to komunikat i nie usuwamy !!!
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product = product::findorfail($id);
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Produkt usunięty');
     }
+
+
 }

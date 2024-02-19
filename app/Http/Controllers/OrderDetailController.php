@@ -1,134 +1,88 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Status;
-use App\Models\LogicalArea;
-use App\Models\Product;
-use App\Models\User;
-use App\Models\OrderDetail;
-use App\Models\Order;
+
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Status;
+use App\Models\Firm;
+use App\Models\OrderDetail;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class OrderDetailController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function create(Order $order)
-    {
-        //dd($order);
-        $status_id = $order->status_id;
-        $products = Product::getCustomer();
-        $logicalareas = LogicalArea::orderBy('code')->get();
-
-        if ($status_id <> 501)
-        {
-            abort(404);
-        }
-
-        return view('orderdetails.create', ['products' => $products,
-                                            'logicalareas'=> $logicalareas,
-                                            'order' => $order]);
-    }
-
-    public function store(Request $request, Order $order)
-    {
-        //dd($order);
-        $validatedAttributes = $request->validate ([
-            'product_id' => 'required',
-            'logical_area_id' => 'required',
-            'quantity' => 'required',
-            'expiration_at' => '',
-            'serial_nr' => '',
-        ]);
-        $product = Product::findOrFail($validatedAttributes['product_id']);
-
-        $validatedAttributes['order_id'] = $order->id;
-        $validatedAttributes['prod_code'] = $product->code;
-        $validatedAttributes['prod_desc'] = $product->longdesc;
-
-        $orderdetails = OrderDetail::create($validatedAttributes);
-        //dd($validatedAttributes);
-        return redirect()->route('orderdetail.show', ['order' => $order, 'orderdetails' => $orderdetails]);
-    }
-
-    public function show(Order $order)
-    {
-        //dd($order);
-        $status_id = $order->status_id;
-        $order_id = $order->id;
-
-        if ($status_id <> 501)
-        {
-            abort(404);
-        }
-
-        $orderdetails = OrderDetail::where('order_id',$order_id)->get();
-        return view('orderdetails.show',compact('order','orderdetails'));
-    }
-
-    public function edit(Order $order, OrderDetail $orderdetail)
-    {
-        $status_id = $order->status_id;
-
-        if ($status_id <> 501) {
-            abort(404);
-        }
-
-        $products = Product::getCustomer();
-        $logicalareas = LogicalArea::orderBy('code')->get();
-
-        return view('orderdetails.edit', ['products' => $products,
-                                            'logicalareas' => $logicalareas,
-                                            'order' => $order,
-                                            'orderdetail' => $orderdetail]);
-    }
-
-    public function update(Request $request, Order $order, OrderDetail $orderdetail)
-    {
-        $status_id = $order->status_id;
-
-        if ($status_id <> 501) {
-            abort(404);
-        }
-
-        $validatedAttributes = $request->validate([
-            'product_id' => 'required',
-            'logical_area_id' => 'required',
-            'quantity' => 'required',
-            'expiration_at' => '',
-            'serial_nr' => '',
-        ]);
-
-        $product = Product::findOrFail($validatedAttributes['product_id']);
-
-        $validatedAttributes['order_id'] = $order->id;
-        $validatedAttributes['prod_code'] = $product->code;
-        $validatedAttributes['prod_desc'] = $product->longdesc;
-
-        $orderdetail->update($validatedAttributes);
-        //dd($orderdetail);
-        return redirect()->route('orderdetail.show', ['order' => $order, 'orderdetail' => $orderdetail]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function sendPicking($id)
+    public function index($id)
     {
         $order = Order::findorfail($id);
-        $data = [
-            'status_id' => 503,
-        ];
-        $order->update($data);
-        return redirect()->route('pickings.index')->with('success', 'Dokument przekazany do kompletacji :)');
+        $status_id = $order->status_id;
+        $order_id = $order->id;
+        $owner_id = $order->owner_id;
 
+        $orderdetails = OrderDetail::where('order_id',$id)->paginate(15);
+
+        if ($status_id == 502)
+        {
+            return view('orderdetail.index',compact('order','orderdetails'));
+        }
+
+        return view('orderdetail.index',compact('order','orderdetails'));
+
+    }
+
+    public function create($id ,Request $request)
+    {
+        $order = Order::findorfail($id);
+        $owner_id = $order->owner_id;
+
+
+        if ($request->search != null)
+        {
+            $stocks = DB::table('v_reservation')->where('prod_code','like','%'.$request->search.'%')
+                                            ->where('owner_id',$owner_id)
+                                            ->where('sum_stock','>',0)
+                                            ->where('status_id',302)->paginate(5000);
+        }
+        else
+        {
+            $stocks = DB::table('v_reservation')->where('owner_id',$owner_id)
+                                                ->where('sum_stock','>',0)
+                                                ->where('status_id',302)->paginate(5000);
+        }
+
+        return view('orderdetail.create',compact('order','stocks'));
+
+    }
+
+    public function save(Request $request)
+    {
+
+        $validatedAttributes = $request->validate([
+            'order_id'          => 'required',
+            'quantity'          => 'required',
+            'logical_area_id'   => 'required',
+            'product_id'        => 'required',
+            'prod_code'         => 'required',
+            'prod_desc'         => 'required'
+        ]);
+
+        OrderDetail::create($validatedAttributes);
+
+        return redirect()->route('orderdetail.create',['id'=> $request->order_id])->with('success', 'Produkt dodany poprawnie!');
+
+
+    }
+    public function distroy($id)
+    {
+//
+    }
+
+    // wysyłam do kompletacji
+    public function sendpick($id)
+    {
+        $order = Order::findorfail($id);
+        $order->status_id = 503;
+        $order->save();
+        return redirect()->route('orders.index')->with('success', 'Dokument przekazany do kompletacji');
     }
 }

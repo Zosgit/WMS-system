@@ -6,22 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\StoreArea;
 use App\Models\Status;
+use Locale;
 
 class LocationMultiController extends Controller
 {
-    public function index()
-    {
-        //$loc = new Location();
-        //$w1 = $loc->getStoreAreaCount(1,201);
-        //$w2 = $loc->getStoreAreaCount(1,202);
-        //echo 'jest: '.$w1.' na: '.$w2;
-
-        $locations = Location::paginate();
-        $locationCount = Location::count();
-
-        return view('locations.index', compact('locations','locationCount'));
-    }
-
     public function create()
     {
         return view('locations.createmulti',['store_areas' => StoreArea::all(),
@@ -81,37 +69,6 @@ class LocationMultiController extends Controller
                 }
             }
         }
-        // function generateNumberLabels($w1, $w2, $w3, $od_1, $od_2, $od_3, $do_1, $do_2, $do_3) {
-        //     $format = '%0' . $w1 . 'd';
-        //     $format1 = '%0' . $w2 . 'd';
-        //     $format2 = '%0' . $w3 . 'd';
-
-        //     for ($i = $od_1; $i <= $do_1; $i++) {
-        //         $label = sprintf($format, $i);
-        //         for ($j = $od_2; $j <= $do_2; $j++) {
-        //             $label1 = sprintf($format1, $j);
-        //             for ($k = $od_3; $k <= $do_3; $k++) {
-        //                 $label2 = sprintf($format2, $k);
-        //                 $ean= $label . "-". $label1. "-" . $label2;
-        //             }
-        //         }
-        //     }
-        //     return $labels;
-        // }
-        // $generatedLabels = generateNumberLabels(
-        //     $validatedAttributes['w1'],
-        //     $validatedAttributes['w2'],
-        //     $validatedAttributes['w3'],
-        //     $validatedAttributes['od_1'],
-        //     $validatedAttributes['od_2'],
-        //     $validatedAttributes['od_3'],
-        //     $validatedAttributes['do_1'],
-        //     $validatedAttributes['do_2'],
-        //     $validatedAttributes['do_3']
-        // );
-
-        //dd($request);
-        //Location::Create(['id' => $request->id], $request->except('id'));
-        return redirect()->route('locations.index')->with('success', 'Etykieta lokacji dodana poprawnie!');
+        return redirect()->route('locations.index')->with('success', 'Wygenerowane '.$counter.' nowych miejsc !');
     }
 }

@@ -9,9 +9,7 @@ class FirmController extends Controller
     public function index()
     {
         $firms = Firm::paginate();
-        $firmCount = Firm::count();
-
-        return view('firms.index', compact('firms','firmCount'));
+        return view('firms.index', compact('firms'));
     }
 
     public function create()
@@ -31,8 +29,8 @@ class FirmController extends Controller
             'notes' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
-        $validatedAttributes['holder'] = $request->get('holder') == 'on' ? 1 : 0;
+        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['owner'] = $request->get('owner') == 'on' ? 1 : 0;
 
        // dd($validatedAttributes);
        Firm::create($validatedAttributes);
@@ -58,8 +56,8 @@ class FirmController extends Controller
             'notes' => 'required'
         ]);
         $validatedAttributes['shipment'] = $request->get('shipment') == 'on' ? 1 : 0;
-        $validatedAttributes['customer'] = $request->get('customer') == 'on' ? 1 : 0;
-        $validatedAttributes['holder'] = $request->get('holder') == 'on' ? 1 : 0;
+        $validatedAttributes['delivery'] = $request->get('delivery') == 'on' ? 1 : 0;
+        $validatedAttributes['owner'] = $request->get('owner') == 'on' ? 1 : 0;
 
         $firm->update($validatedAttributes);
         return redirect()->route('firms.index')->with('success', 'Kontrahent edytowany poprawnie');

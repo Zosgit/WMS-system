@@ -1,105 +1,70 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\ShipmentDetail;
+use Illuminate\Http\Request;
 use App\Models\Shipment;
+use App\Models\Status;
+use App\Models\Firm;
 use App\Models\Product;
 use App\Models\LogicalArea;
-use App\Models\Status;
-use Illuminate\Http\Request;
 
 class ShipmentDetailController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index($id)
     {
-        //
-    }
-
-    public function create(Shipment $shipment)
-    {
-        $status_id = $shipment->status_id;
-        $products = Product::getShipment();
-        $logicalareas = LogicalArea::orderBy('code')->get();
-
-        if ($status_id <> 401)
-        {
-            abort(404);
-        }
-
-        return view('shipmentdetails.create', ['products' => $products,
-                                                'logicalareas'=> $logicalareas,
-                                                'shipment' => $shipment]);
-    }
-
-    public function store(Request $request,Shipment $shipment)
-    {
-        $validatedAttributes = $request->validate ([
-            'product_id' => 'required',
-            'logical_area_id' => 'required',
-            'quantity' => 'required',
-            'expiration_at' => '',
-            'serial_nr' => '',
-        ]);
-        $product = Product::findOrFail($validatedAttributes['product_id']);
-
-        $validatedAttributes['ship_id'] = $shipment->id;
-        $validatedAttributes['prod_code'] = $product->code;
-        $validatedAttributes['prod_desc'] = $product->longdesc;
-
-        $shipmentdetails = ShipmentDetail::create($validatedAttributes);
-        //dd($validatedAttributes);
-        return redirect()->route('shipmentdetail.show', ['shipment' => $shipment, 'shipmentdetails' => $shipmentdetails]);
-    }
-
-    public function show(Shipment $shipment)
-    {
-        //dd($shipment);
+        $shipment = Shipment::findorfail($id);
         $status_id = $shipment->status_id;
         $ship_id = $shipment->id;
 
-        if ($status_id <> 401)
+        $products = Product::getShipment();
+        $logicalareas = LogicalArea::orderBy('code')->get();
+        $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->paginate(200);
+
+        if ($status_id < 403)
+        {
+            return view('shipmentdetail.index',compact('shipment','products','logicalareas','shipmentdetails'));
+        }
+
+        return view('shipmentdetail.show',compact('shipment','products','logicalareas','shipmentdetails'));
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Shipment $shipment)
+    {
+        $status_id = $shipment->status_id;
+
+        if ($status_id > 402)
         {
             abort(404);
         }
-        $products = Product::getShipment();
-        $logicalareas = LogicalArea::orderBy('code')->get();
-        $shipmentdetails = ShipmentDetail::where('ship_id',$ship_id)->get();
-       //dd($shipmentdetails);
-
-        return view('shipmentdetails.show',compact('shipment','products','logicalareas','shipmentdetails'));
-    }
-
-    public function edit(Shipment $shipment, ShipmentDetail $shipmentdetail)
-    {
-        $status_id = $shipment->status_id;
-
-        if ($status_id <> 401) {
-            abort(404);
-        }
 
         $products = Product::getShipment();
         $logicalareas = LogicalArea::orderBy('code')->get();
 
-        return view('shipmentdetails.edit', ['products' => $products,
-                                            'logicalareas' => $logicalareas,
-                                            'shipment' => $shipment,
-                                            'shipmentdetail' => $shipmentdetail]);
+        return view('shipmentdetail.create',compact('shipment','products','logicalareas'));
     }
 
-    public function update(Request $request, Shipment $shipment, ShipmentDetail $shipmentdetail)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request, Shipment $shipment)
     {
-        $status_id = $shipment->status_id;
 
-        if ($status_id <> 401) {
-            abort(404);
-        }
-
-        $validatedAttributes = $request->validate([
-            'product_id' => 'required',
-            'logical_area_id' => 'required',
-            'quantity' => 'required',
-            'expiration_at' => '',
-            'serial_nr' => '',
+        $validatedAttributes = $request->validate ([
+            'product_id'        => 'required',
+            'logical_area_id'   => 'required',
+            'quantity'          => 'required|Decimal:2',
+            'serial_nr'         => '',
+            'expiration_at'     => '',
+            'remarks'           => '',
         ]);
 
         $product = Product::findOrFail($validatedAttributes['product_id']);
@@ -108,33 +73,51 @@ class ShipmentDetailController extends Controller
         $validatedAttributes['prod_code'] = $product->code;
         $validatedAttributes['prod_desc'] = $product->longdesc;
 
-        $shipmentdetail->update($validatedAttributes);
+        ShipmentDetail::create($validatedAttributes);
 
-        return redirect()->route('shipmentdetail.show', ['shipment' => $shipment, 'shipmentdetails' => $shipmentdetail]);
-    }
-
-    public function destroy(Shipment $shipment, ShipmentDetail $shipmentdetail)
-    {
-        $status_id = $shipment->status_id;
-
-        if ($status_id <> 401) {
-            abort(404);
-        }
-
-        $shipmentdetail->delete();
-        return redirect()->route('shipmentdetail.show', ['shipment' => $shipment])->with('success', 'Shipment Detail deleted successfully');
+        return redirect()->route('shipmentdetail.index', ['id' => $shipment->id]);
     }
 
     public function sendcontrol($id)
     {
         $shipment = Shipment::findorfail($id);
-        $data = [
-            'status_id' => 403,
-        ];
-        $shipment->update($data);
-        return redirect()->route('controls.index')->with('success', 'Dokument przekazany do kontroli :)');
-
-
+        $shipment->status_id = 403;
+        $shipment->save();
+        return redirect()->route('shipments.index')->with('success', 'Dokument przekazany do kontroli');
     }
 
+
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(ShipmentDetail $shipmentDetail)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(ShipmentDetail $shipmentDetail)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, ShipmentDetail $shipmentDetail)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

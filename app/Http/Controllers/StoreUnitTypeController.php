@@ -8,10 +8,8 @@ class StoreUnitTypeController extends Controller
 {
     public function index()
     {
-        $storeunittypes = StoreUnitType::paginate();
-        $storeunittypeCount = StoreUnitType::count();
-
-        return view('storeunittypes.index', compact('storeunittypes','storeunittypeCount'));
+        $storeunittypes = StoreUnitType::orderby('code')->paginate();
+        return view('storeunittypes.index', compact('storeunittypes'));
     }
 
     public function create()
@@ -31,22 +29,17 @@ class StoreUnitTypeController extends Controller
             'suwgt' => 'required|Decimal:2'
         ]);
 
-        //StoreUnitType::create($validatedAttributes);
-
-        //dd($request);
         StoreUnitType::updateOrCreate(['id' => $request->id], $request->except('id'));
-        return redirect()->route('storeunittypes.index')->with('success', 'opakowanie dodane poprawnie!');
+        return redirect()->route('storeunittypes.index')->with('success', 'Opakowanie dodane poprawnie!');
     }
 
     public function edit(StoreUnitType $storeunittype)
     {
-       // dd($products = Product::find($id));
        return view('storeunittypes.edit', compact('storeunittype'));
     }
 
     public function update(StoreUnitType $storeunittype, Request $request)
     {
-       // dd($request);
         $validatedAttributes = $request->validate ([
             'prefix' => 'required',
             'size_x' => 'required|Decimal:2',
@@ -56,9 +49,7 @@ class StoreUnitTypeController extends Controller
             'suwgt' => 'required|Decimal:2'
         ]);
 
-        //dd($request);
-
-        $product->update($validatedAttributes);
+        $storeunittype->update($validatedAttributes);
         return redirect()->route('storeunittypes.index')->with('success', 'Opakowanie edytowe poprawnie!');
 
     }
