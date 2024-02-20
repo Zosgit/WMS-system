@@ -18,8 +18,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstname',
-        'lastname',
+        // 'firstname',
+        // 'lastname',
+        'name',
         'email',
         'password',
     ];
@@ -46,6 +47,6 @@ class User extends Authenticatable
 
     public function getNameAttribute()
     {
-        return $this->firstname.' '.$this->lastname;
+       //return $this->firstname.' '.$this->lastname;
     }
 }

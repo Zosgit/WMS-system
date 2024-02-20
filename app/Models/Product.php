@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = ['code', 'longdesc', 'producttype_id', 'size_x',
                         'size_y', 'size_z', 'weight', 'ean', 'metric_id',
-                        'shipment', 'customer', 'created_by'];
+                        'shipment', 'delivery', 'created_by'];
 
 
     public function producttype(): BelongsTo
@@ -36,10 +36,12 @@ class Product extends Model
     {
         return static::where('shipment', 0)->orderby('code','asc')->get();
     }
-    public static function getCustomer()
+
+    public static function getOrder()
     {
-        return static::where('customer', 0)->orderby('code','asc')->get();
+        return static::where('delivery', 0)->orderby('code','asc')->get();
     }
+
 
     public static function booted(){
 

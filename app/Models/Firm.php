@@ -4,33 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Firm extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'firms';
+
     protected $fillable = ['code', 'longdesc', 'tax', 'street',
                          'postcode', 'city', 'notes', 'shipment',
-                         'holder', 'customer', 'created_by'];
-
-    public static function getHolder($holders)
-    {
-        return static::where('holder', $holders)->get();
-    }
-    public static function getSupplier($suppliers)
-    {
-        return static::where('shipment', $suppliers)->get();
-    }
-    public static function getCustomer($customers)
-    {
-        return static::where('customer', $customers)->get();
-    }
+                         'owner', 'delivery', 'created_by'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public static function getShipment()
+    {
+        return static::where('shipment', 1)->orderby('code','asc')->get();
+    }
+
+    public static function getOwner()
+    {
+        return static::where('owner', 1)->orderby('code','asc')->get();
+    }
+
+    public static function getDelivery()
+    {
+        return static::where('delivery', 1)->orderby('code','asc')->get();
     }
 
     public static function booted(){

@@ -4,38 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Status;
 use App\Models\Firm;
-use App\Models\Control;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Location;
 
 class Shipment extends Model
 {
-    use HasFactory, SoftDeletes;
-    protected $fillable = ['name_doc', 'nr_doc', 'remarks','holder_id',
-                            'supplier_id', 'status_id','created_by' ];
+    use HasFactory,SoftDeletes;
 
-
-    // public function firm(): BelongsTo
-    // {
-    //     return $this->belongsTo(Firm::class, 'supplier_id', 'id')->belongsTo(Firm::class, 'holder_id', 'id');
-    // }
-    public function supplier(): BelongsTo
-    {
-        return $this->belongsTo(Firm::class, 'supplier_id', 'id');
-    }
-
-    public function holder(): BelongsTo
-    {
-        return $this->belongsTo(Firm::class, 'holder_id', 'id');
-    }
-
-    public function shipcontrol(): HasMany
-    {
-        return $this->belongsTo(Control::class, 'ship_id', 'id');
-    }
+    protected $fillable = ['ship_nr','external_nr','firm_id','owner_id','remarks','status_id','created_by','location_id'];
 
     public function user(): BelongsTo
     {
@@ -47,12 +26,27 @@ class Shipment extends Model
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 
+    public function firm(): BelongsTo
+    {
+        return $this->belongsTo(Firm::class, 'firm_id', 'id');
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Firm::class, 'owner_id', 'id');
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
     public static function booted(){
 
-    static::creating(function($model)
+        static::creating(function($model)
         {
-        $model->created_by = auth()->id();
-        $model->status_id = 401;
+            $model->created_by = auth()->id();
+            $model->status_id = 402;
         });
     }
 }

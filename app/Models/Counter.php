@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Counter extends Model
 {
@@ -21,26 +20,33 @@ class Counter extends Model
         $temp->update();
         return $number++;
     }
+
     public static function getNumber($doc)
     {
-        $date = date("Ymd");
+        /*
+             generowanie nr dokumentu
+             zakładam ciąg np TYP/DATA/NR
+        */
+        $syear = now()->year;
+        $smonth = now()->month;
+        $sday = now()->day;
+        $sdate = $syear.$smonth.$sday;
 
         switch ($doc) {
-           case 'DOSTAWA':
+           case 'SHIPMENT':
                 $type = 'D';
                 $counter = 2;
                 break;
-           case 'WYDANIE':
+           case 'ORDER':
                 $type = 'W';
                 $counter = 3;
                 break;
            break;
         default: $type = '';
-        $counter = 0;
         }
         $number = Counter::getCounter($counter);
 
-        return $type.'_'.$date.'_'.$number;
+        return $type.'_'.$sdate.'_'.$number;
 
     }
 }
