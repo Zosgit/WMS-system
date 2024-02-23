@@ -95,6 +95,7 @@
 </div>
 <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
 <script src="{{ asset("plugins/jquery/jquery.js")}}"></script>
+<script src="{{ asset("plugins/DataTables/js/jquery.dataTables.min.js")}}"></script>
 @stack('scripts')
 </body>
 </html>

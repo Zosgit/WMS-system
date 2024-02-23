@@ -4,7 +4,7 @@
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-view-quilt') }}"></use>
             </svg>
-            {{ __('Dashboard') }}
+            Strona główna
         </a>
     </li>
 
@@ -17,17 +17,12 @@
         </a>
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('shipments.create') }}" target="_top">
-                    Nowa dostawa
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('shipments.index') }}" target="_top">
                     Dokumenty przyjęcia
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('controls.index') }}" target="_top">
+                <a class="nav-link" href="{{ route('control.index') }}" target="_top">
                     Kontrola dostawy
                 </a>
             </li>
@@ -42,39 +37,42 @@
         </a>
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('orders.create') }}" target="_top">
-                    Nowe wydanie
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{ route('orders.index') }}" target="_top">
                     Dokumenty wydania
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('pickings.index') }}" target="_top">
+                <a class="nav-link" href="{{ route('pick.index') }}" target="_top">
                     Planowanie kompletacji
                 </a>
             </li>
         </ul>
     </li>
 
-    {{-- <li class="nav-item">
-        <a class="nav-link" href="{{ route('about') }}">
+    <li class="nav-group" aria-expanded="false">
+        <a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-clipboard') }}"></use>
             </svg>
-            Kompletacja
+           Przesunięcia
         </a>
-    </li> --}}
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('firms.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-group') }}"></use>
-            </svg>
-            Kontrahenci
-        </a>
+        <ul class="nav-group-items" style="height: 0px;">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('move.su') }}" target="_top">
+                    Opakowania
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('move.product') }}" target="_top">
+                    Produkty
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('move.area') }}" target="_top">
+                    Logiczne
+                </a>
+            </li>
+        </ul>
     </li>
 
     <li class="nav-group" aria-expanded="false">
@@ -87,8 +85,9 @@
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('locations.index') }}" target="_top">
-                    Lokalizacja
+                    Miejsca
                 </a>
+            </li>
         </ul>
     </li>
 
@@ -139,6 +138,15 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('firms.index') }}">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-group') }}"></use>
+            </svg>
+            Kontrahenci
+        </a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-people') }}"></use>
@@ -147,12 +155,28 @@
         </a>
     </li>
 
+    <li class="nav-group" aria-expanded="false">
+        <a class="nav-link nav-group-toggle" href="#">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-inbox') }}"></use>
+            </svg>
+            Raporty
+        </a>
+        <ul class="nav-group-items" style="height: 0px;">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('report.stock') }}" target="_top">
+                    Zapas magazynowy
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('about') }}">
             <svg class="nav-icon">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-address-book') }}"></use>
             </svg>
-            {{ __('About us') }}
+            O nas
         </a>
     </li>
 </ul>
