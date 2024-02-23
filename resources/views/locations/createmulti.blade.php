@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Dodaj wiele etykiet' }} @endsection
 @section('content')
 
 <form action="{{ route('locations.storemulti') }}" class="forms-sample" method="POST">
@@ -11,7 +12,10 @@
                     <i class="fas fa-cube"></i>
                     &nbsp; <b>Wzór etykiety do wygenerowania</b>
                 </div>
+
+
                     <div class="card-body"><canvas id="myBarChart" width="100%" height="10"></canvas>
+
                         <div class="row p-1 pt-0 justify-content-center text-center">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -93,10 +97,14 @@
                             </div>
                         </div>
                     </div>
-            </div>
         </div>
     </div>
 </div>
+</div>
+
+
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -105,7 +113,9 @@
                     <i class="fas fa-cube"></i>
                     &nbsp; <b>Dane podstawowe</b>
                 </div>
+
                     <div class="card-body"><canvas id="myBarChart" width="100%" height="10"></canvas>
+
                         <div class="row p-2 pt-2">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -124,6 +134,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+
                                         </select>
                                 </div>
                             </div>
@@ -203,12 +214,15 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         <div class="col-md-6 p-3">
                             <button type="submit" class="btn btn-primary mr-4">Potwierdź</button>
                             <a href="{{ route('locations.index') }}"
                                     class="btn btn-light">Anuluj</a>
                         </div>
                     </div>
+
 
                     @push('scripts')
                         <script src="{{ asset("plugins/select2/dist/js/select2.min.js")}}"></script>
@@ -218,6 +232,11 @@
                             });
                         </script>
                     @endpush
+
+                    {{--
+
+                    --}}
+
             </div>
         </div>
     </div>

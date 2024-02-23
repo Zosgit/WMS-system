@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title')
+{{ 'Dodaj etykiete' }}
+@endsection
+
 @section('content')
 
 <div class="container">
