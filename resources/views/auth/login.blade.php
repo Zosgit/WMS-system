@@ -1,9 +1,9 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="col-lg-8">
+    <div class="col-lg-6">
         <div class="card-group d-block d-md-flex row">
-            <div class="card col-md-7 p-0 mb-0">
+            <div class="card col-md-6 p-0 mb-0">
                 <div class="card-body">
                     <h2 class="text-center m-3">Zaloguj się</h2>
                     <form action="{{ route('login') }}" method="POST">
@@ -16,7 +16,7 @@
                                    placeholder="{{ __('Email') }}" required autofocus>
                             @error('email')
                             <div class="invalid-feedback">
-                                {{ $message }}
+                                Brak danego emaila w bazie.
                             </div>
                             @enderror
                         </div>
@@ -34,8 +34,8 @@
                             @enderror
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-6 text-center">
-                                <button class="btn btn-primary  px-4 " type="submit">Zaloguj</button>
+                            <div class="col-8 text-center">
+                                <button class="btn btn-primary px-4" type="submit">Zaloguj</button>
                             </div>
 
                         </div>
@@ -43,15 +43,21 @@
 
                 </div>
                 <div class="card-footer  justify-content-center py-3">
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                     <div class=" text-center">
                         <a href="{{ route('password.request') }}" class="btn btn-link">
-                        {{ __('Zapomniałeś hasła?') }}</a>
+                        Zapomniałeś hasła?</a>
                     </div>
-                @endif
+                @endif --}}
+                <div class=" text-center">
+                    &nbsp;Zapomniałeś hasła?
+                    <svg class="icon">
+                        <use xlink:href="{{ asset('icons/coreui.svg#cil-arrow-right') }}"></use>
+                      </svg></a>
+                </div>
                 </div>
             </div>
-            <div class="card col-md-5 text-white bg-primary py-5">
+            {{-- <div class="card col-md-5 text-white bg-primary py-5">
                 <div class="card-body text-center mt-4">
                     <div>
                         <h3>Nie masz konta? <br> Zapisz się!</h3>
@@ -59,7 +65,7 @@
                            class="btn btn-lg btn-outline-light mt-3">{{ __('Zarejestruj') }}</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

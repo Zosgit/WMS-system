@@ -3,7 +3,7 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            {{ __('My profile') }}
+            Mój profil
         </div>
 
         <form action="{{ route('profile.update') }}" method="POST">
@@ -60,7 +60,7 @@
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
                     <input class="form-control @error('password') is-invalid @enderror" type="password"
-                           name="password" placeholder="{{ __('New password') }}" required>
+                           name="password" placeholder="Nowe hasło" required>
                     @error('password')
                     <span class="invalid-feedback">
                             {{ $message }}
@@ -73,14 +73,15 @@
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
                     <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password"
-                           name="password_confirmation" placeholder="{{ __('New password confirmation') }}" required>
+                           name="password_confirmation" placeholder="Potwierdź nowe hasło" required>
                 </div>
 
             </div>
 
-            <div class="card-footer">
-                <button class="btn btn-sm btn-primary" type="submit">{{ __('Submit') }}</button>
-            </div>
+                <div class="col-mt-6 p-3">
+                    <button type="submit" class="btn btn-primary mr-4">Potwierdź</button>
+
+                </div>
 
         </form>
 
