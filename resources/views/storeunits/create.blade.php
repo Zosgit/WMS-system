@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Dodaj opakowanie' }} @endsection
 @section('content')
 
 <div class="container">
@@ -7,7 +8,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-cube"></i>
-                    &nbsp; <b>Dodaj nowy rodzaj opakowania</b>
+                    &nbsp; <b>Definicja opakowania</b>
                 </div>
               @include('storeunits.fields')
             </div>
