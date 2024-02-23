@@ -1,16 +1,16 @@
 @extends('layouts.app')
-
+@section('title') {{ 'Rodzaj produktu' }} @endsection
 @section('content')
 
     <div class="card mb-4">
         <div class="card-header">
-            <b>Rodzaje produktów</b>{{ ' - '.$producttypeCount}}
+            <b>Rodzaje produktów</b>
                 <a href="{{ route('producttypes.create') }}"
                     class="btn btn-primary float-end px-4 btn-sm">Dodaj</a>
         </div>
 
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover table-sm">
                 <thead>
                 <tr>
                     <th scope="col">Typ</th>
@@ -35,6 +35,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <div>
+                {{$producttypes->links() }}
+            </div>
+            <p>
+                Ilość: {{$producttypes->count()}} z {{ $producttypes->total() }} rekordów.
+            </p>
 
 
         </div>
