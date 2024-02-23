@@ -6,9 +6,9 @@
     <div class="row p-2">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="code">Ilość (skrót)</label>
+                <label for="code">Skró<table></table></label>
                 <input type="text" name="code"
-                    value="{{ isset($metric) ? $metric->code : '' }}" class="form-control" id="code" required>
+                    value="{{ isset($metric) ? $metric->code : '' }}" class="form-control" id="code" required/>
 
                     @if (isset($metric))
                         <input type="hidden" name="metric_id" value="{{ $metric->id }}">
@@ -17,8 +17,8 @@
             <div class="col-md-12 pt-2">
                 <div class="form-group">
                     <label for="amount">Liczba</label>
-                    <input type="number" min="0" name="amount"
-                        value="{{ isset($metric) ? $metric->amount : '' }}" class="form-control" id="amount" required>
+                    <input type="number" name="amount"
+                        value="{{ isset($metric) ? $metric->amount : '' }}" class="number form-control" id="amount" required/>
                 </div>
             </div>
         </div>
@@ -26,7 +26,9 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label for="longdesc">Opis</label>
-                <textarea type="text" name="longdesc"value="{{ isset($metric) ? $metric->longdesc : '' }}" class="form-control" id="longdesc" rows="4" required></textarea>
+                <textarea type="text" name="longdesc"
+                    value="{{ isset($metric) ? $metric->longdesc : '' }}" class="form-control" id="longdesc" rows="4" required>
+                </textarea>
             </div>
         </div>
     </div>
@@ -38,3 +40,10 @@
     </div>
 </div>
 </form>
+@push('scripts')
+<script>
+    $('.number').on('change', function(){
+        $(this).val(parseFloat($(this).val()).toFixed(2));
+    });
+</script>
+@endpush

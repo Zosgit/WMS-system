@@ -3,13 +3,13 @@
 
     <div class="card mb-4">
         <div class="card-header">
-            <b>Jednostki miary produktów</b>{{ ' - '.$productmetricCount}}
+            <b>Jednostki miary produktów</b>
                 <a href="{{ route('productmetrics.create') }}"
                     class="btn btn-primary float-end px-4 btn-sm">Dodaj</a>
         </div>
 
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover table-sm">
                 <thead>
                 <tr>
                     <th scope="col">Nazwa</th>
@@ -33,6 +33,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <div>
+                {{$productmetrics->links() }}
+            </div>
+            <p>
+                Ilość: {{$productmetrics->count()}} z {{ $productmetrics->total() }} rekordów.
+            </p>
 
         </div>
 
