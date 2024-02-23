@@ -1,12 +1,12 @@
 @extends('layouts.app')
-
+@section('title') {{ 'O nas' }} @endsection
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            {{ __('About us') }}
+            Informacje
         </div>
         <div class="card-body">
-            {{ __('Sample static text page') }}
+            Praca inżynierska
         </div>
     </div>
 @endsection
