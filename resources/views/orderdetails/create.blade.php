@@ -1,100 +1,81 @@
 @extends('layouts.app')
+
+@section('title') {{ 'Raport zapasu' }} @endsection
+
 @section('content')
-<div class="container">
-    <div class="card">
-        <div class="card-header d-flex align-items-center">
-            <div>Wydanie nr: <strong>{{$order->order_nr}}</strong></div>
+<a class="big" href="{{ route('orderdetail.index',['id'=>$order->id])}}"><svg class="icon">
+    <use xlink:href="{{ asset('icons/coreui.svg#cil-arrow-left') }}"></use>
+  </svg>&nbsp;Lista zamówień</a></br></br>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Zapas magazynowy do zamówienia: {{ $order->order_nr }}
         </div>
         <div class="card-body">
-            <form action="{{ route('orderdetail.store',['order'=>$order]) }}" class="forms-sample" method="POST">
-                @csrf
-                <div class="row p-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="product_id">Wybierz produkt</label>
-                            <select name="product_id" class="form-select form-control @error('product_id') is-invalid @enderror" id="product_id" required>
-                                <option value="">Wybierz</option>
-                                @foreach ($products as $product)
-                                <option value="{{ $product->id }}"
-                                    @if (isset($orderdetail))
-                                    {{ $orderdetail->product_id == $product->id ? 'selected' : '' }}
-                                @endif>
-                                {{ $product->ean.' || '.$product->code.' || '.$product->longdesc }}</option>
-                                @endforeach
-
-                                @error('product_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </select>
-                        </div>
+            <form action="" method="GET">
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <input type="text" name="search" value="" class="form-control" placeholder="Wprowadź produkt" />
+                    </div>
+                    <div class="col-md-5">
+                        <button type="submit" class="btn btn-dark">Filtruj</button>
                     </div>
                 </div>
-                <div class="row p-2">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="serial_nr">Numer seryjny</label>
-                            <input type="text" name="serial_nr"
-                                value="" class="form-control " id="serial_nr">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="expiration_at">Data ważności</label>
-                            <input type="date" name="expiration_at"
-                                value="" class="form-control " id="expiration_at">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="logical_area_id">Magazyn logiczny</label>
-                            <select name="logical_area_id" class="select2-container form-control "  id="logicalarea_id" required>
-                                <option value="">Wybierz</option>
-                                @foreach ($logicalareas as $logicalarea)
-                                <option value="{{ $logicalarea->id }}"
-                                    @if (isset($orderdetail))
-                                    {{ $orderdetail->logical_area_id == $logicalarea->id ? 'selected' : '' }}
-                                @endif>
-                                {{ $logicalarea->longdesc}}</option>
-                                @endforeach
-
-                                @error('logical_area_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row p-2">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="quantity">Ilość</label>
-                            <input type="number" min="0" name="quantity"
-                                value="" class="form-control " id="quantity" required>
-
-                            </div>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <label for=" remarks">Komentarz</label>
-                            <input type="text" name="remarks"
-                                value="" class="form-control " id="remarks">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 p-3">
-                    <button type="submit" class="btn btn-primary mr-4">Dopisz</button>
-                    <a href="{{ route('orderdetail.show',['order'=>$order])}}" class="btn btn-light">Anuluj</a>
-                </div>
-
             </form>
+            <table id="data_table" class="table table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Opis</th>
+                        <th>Magazyn</th>
+                        <th>Suma</th>
+                        <th >Dopisuje...</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($stocks as $stock)
+                            <tr>
+                                <td>{{ $stock->prod_code }}</td>
+                                <td>{{ $stock->longdesc}}</td>
+                                <td>{{ $stock->code_la}}</td>
+                                <td>{{ $stock->sum_stock}}</td>
+                                <td>
+                                    <form action="{{ route('orderdetail.save') }}" method="post">
+                                        @csrf
+                                        <div class="row ">
+                                            <div class="col-md-6 input-group-sm">
+                                                <input type="number" Step=".01" id="quantity" name="quantity" min="1"max="{{ $stock->sum_stock }}" value="" class="form-control" placeholder="Ilość" required/>
+                                                <input type="hidden" id='order_id' name='order_id' value="{{ $order->id }}"/>
+                                                <input type="hidden" id='logical_area_id' name='logical_area_id' value="{{ $stock->logical_area_id }}"/>
+                                                <input type="hidden" id='product_id' name='product_id' value="{{ $stock->product_id }}"/>
+                                                <input type="hidden" id='prod_code' name='prod_code' value="{{ $stock->prod_code}}"/>
+                                                <input type="hidden" id='prod_desc' name='prod_desc' value="{{ $stock->longdesc }}"/>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <button type="submit" class="btn btn-success btn-sm">Dopisz</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                </tbody>
+            </table>
+
+            <div>
+                {{$stocks->links() }}
             </div>
+            <p>
+                Ilość: {{$stocks->count()}} z {{ $stocks->total() }} rekordów.
+            </p>
+
+        </div>
+
+        {{--
+        <div class="card-footer">
+            {{ $users->links() }}
+        </div>
+        --}}
     </div>
-    </div>
-    </div>
-</div>
+
 @endsection
