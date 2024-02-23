@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Dodaj produkt' }} @endsection
 @section('content')
 
 <div class="container">

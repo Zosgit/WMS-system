@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label for="size_x">Długość (cm)</label>
                     <input type="number" Step=".01" name="size_x"
-                        value="{{ isset($product) ? $product->size_x : old('size_x') }}" class="form-control @error('size_x') is-invalid @enderror" id="size_x" required>
+                        value="{{ isset($product) ? $product->size_x : old('size_x') }}" class="number form-control @error('size_x') is-invalid @enderror" id="size_x" required>
 
                         @error('size_x')
                             <span class="invalid-feedback" role="alert">
@@ -69,8 +69,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="size_y">Szerokość (cm)</label>
-                    <input type="text" name="size_y"
-                        value="{{ isset($product) ? $product->size_y : old('size_y') }}" class="form-control @error('size_y') is-invalid @enderror" id="size_y" required>
+                    <input type="number" name="size_y"
+                        value="{{ isset($product) ? $product->size_y : old('size_y') }}" class="number form-control @error('size_y') is-invalid @enderror" id="size_y" required>
 
                         @error('size_y')
                             <span class="invalid-feedback" role="alert">
@@ -82,8 +82,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="size_z">Wysokość (cm)</label>
-                    <input type="text" name="size_z"
-                        value="{{ isset($product) ? $product->size_z : old('size_z') }}" class="form-control @error('size_z') is-invalid @enderror" id="size_z" required>
+                    <input type="number" name="size_z"
+                        value="{{ isset($product) ? $product->size_z : old('size_z') }}" class="number form-control @error('size_z') is-invalid @enderror" id="size_z" required>
 
                         @error('size_z')
                             <span class="invalid-feedback" role="alert">
@@ -98,8 +98,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="weight">Waga (kg)</label>
-                    <input type="text" name="weight"
-                        value="{{ isset($product) ? $product->weight : old('weight') }}" class="form-control @error('weight') is-invalid @enderror" id="weight" required>
+                    <input type="number" name="weight"
+                        value="{{ isset($product) ? $product->weight : old('weight') }}" class="number form-control @error('weight') is-invalid @enderror" id="weight" required>
 
                         @error('weight')
                             <span class="invalid-feedback" role="alert">
@@ -111,7 +111,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="ean">Kod EAN</label>
-                    <input type="text" name="ean"
+                    <input type="number" name="ean"
                         value="{{ isset($product) ? $product->ean : old('ean') }}" class="form-control @error('ean') is-invalid @enderror" id="ean" required>
 
                         @error('ean')
@@ -128,12 +128,12 @@
                         <select name="metric_id" class="form-select form-control @error('metric_id') is-invalid @enderror" id="metric_id" required>
                             <option value="">Wybierz</option>
                             @foreach ($product_metrics as $product_metric)
-                                <option value="{{ $product_metric->id }}"
-                                    @if (isset($product))
+                                <option value="{{ $product_metric->id }}" @if (isset($product))
                                     {{ $product->productmetric_id == $product_metric->id ? 'selected' : '' }}
                             @endif>
                             {{ $product_metric->code }}</option>
                             @endforeach
+
 
                                 @error('metric_id')
                                     <span class="invalid-feedback" role="alert">
@@ -153,8 +153,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="customer">Blokada wydania</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="customer" name="customer">
+                        <label class="form-check-label" for="delivery">Blokada wydania</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="delivery" name="delivery">
                     </div>
                 </div>
             </div>
@@ -171,7 +171,13 @@
         <script src="{{ asset("plugins/select2/dist/js/select2.min.js")}}"></script>
         <script>
             $(document).ready(function() {
+
             $('.select_2').select2();
             });
+
+            $('.number').on('change', function(){
+                $(this).val(parseFloat($(this).val()).toFixed(2));
+            });
+
         </script>
     @endpush

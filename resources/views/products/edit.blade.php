@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Edycja produktu' }} @endsection
 @section('content')
 
 <div class="container">
@@ -164,8 +165,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check form-switch">
-                                            <label class="form-check-label" for="customer">Blokada wydania</label>
-                                            <input class="form-check-input" type="checkbox" role="switch" id="customer" name="customer" @checked(old('customer', $product->customer))>
+                                            <label class="form-check-label" for="delivery">Blokada wydania</label>
+                                            <input class="form-check-input" type="checkbox" role="switch" id="delivery" name="delivery" @checked(old('delivery', $product->delivery))>
                                         </div>
                                     </div>
                                 </div>

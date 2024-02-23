@@ -10,7 +10,7 @@
                 <form id="delete-data" action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-none">
                     @method('Delete')
                     @csrf
-                    <label for="" class="text-center">Are you sure you want to delete this?</label>
+                    <label for="" class="text-center">Czy na pewno chcesz usunąć?</label>
                 </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger px-4 btn-sm">Tak, usuń</button>
