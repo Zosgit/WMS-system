@@ -1,10 +1,10 @@
 @extends('layouts.app')
-
+@section('title') {{ 'Rodzaj opakowania' }} @endsection
 @section('content')
 
     <div class="card mb-4">
         <div class="card-header">
-            <b>Lista opakowań</b>{{ ' - '.$storeunittypeCount}}
+            <b>Rodzaj opakowania</b>
                 <a href="{{ route('storeunittypes.create') }}"
                     class="btn btn-primary float-end px-4 btn-sm">Dodaj</a>
         </div>
@@ -37,6 +37,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <div>
+                {{$storeunittypes->links() }}
+            </div>
+            <p>
+                Ilość: {{$storeunittypes->count()}} z {{ $storeunittypes->total() }} rekordów.
+            </p>
 
         </div>
 

@@ -39,8 +39,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="size_x">Długość (cm)</label>
-                <input type="text" name="size_x"
-                    value="{{ isset($storeunittype) ? $storeunittype->size_x : '' }}" class="form-control @error('size_x') is-invalid @enderror" id="size_x" required>
+                <input type="number" name="size_x"
+                    value="{{ isset($storeunittype) ? $storeunittype->size_x : '' }}" class="number form-control @error('size_x') is-invalid @enderror" id="size_x" required>
 
 
                     @error('size_x')
@@ -53,8 +53,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="size_y">Szerokość (cm)</label>
-                <input type="text" name="size_y"
-                    value="{{ isset($storeunittype) ? $storeunittype->size_y : '' }}" class="form-control @error('size_y') is-invalid @enderror" id="size_y" required>
+                <input type="number" name="size_y"
+                    value="{{ isset($storeunittype) ? $storeunittype->size_y : '' }}" class="number form-control @error('size_y') is-invalid @enderror" id="size_y" required>
 
 
                     @error('size_y')
@@ -67,8 +67,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="size_z">Wysokość (cm)</label>
-                <input type="text" name="size_z"
-                    value="{{ isset($storeunittype) ? $storeunittype->size_z : '' }}" class="form-control @error('size_z') is-invalid @enderror" id="size_z" required>
+                <input type="number" name="size_z"
+                    value="{{ isset($storeunittype) ? $storeunittype->size_z : '' }}" class="number form-control @error('size_z') is-invalid @enderror" id="size_z" required>
 
 
                     @error('size_z')
@@ -84,8 +84,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="loadwgt">Waga maks. na opakowaniu (kg)</label>
-                <input type="text" name="loadwgt"
-                    value="{{ isset($storeunittype) ? $storeunittype->loadwgt : '' }}" class="form-control @error('loadwgt') is-invalid @enderror" id="loadwgt" required>
+                <input type="number" name="loadwgt"
+                    value="{{ isset($storeunittype) ? $storeunittype->loadwgt : '' }}" class="number form-control @error('loadwgt') is-invalid @enderror" id="loadwgt" required>
 
 
                     @error('loadwgt')
@@ -98,8 +98,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="suwgt">Waga opakowania (kg)</label>
-                <input type="text" name="suwgt"
-                    value="{{ isset($storeunittype) ? $storeunittype->suwgt : '' }}" class="form-control @error('suwgt') is-invalid @enderror" id="suwgt" required>
+                <input type="number" name="suwgt"
+                    value="{{ isset($storeunittype) ? $storeunittype->suwgt : '' }}" class="number form-control @error('suwgt') is-invalid @enderror" id="suwgt" required>
 
 
                     @error('suwgt')
@@ -119,3 +119,10 @@
     </div>
 </div>
 </form>
+@push('scripts')
+<script>
+    $('.number').on('change', function(){
+        $(this).val(parseFloat($(this).val()).toFixed(2));
+    });
+</script>
+@endpush
