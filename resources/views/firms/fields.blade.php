@@ -110,14 +110,14 @@
         </div>
         <div class="col-md-4">
             <div class="form-check form-switch">
-                <label class="form-check-label" for="customer">Odbiorca</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="customer" name="customer">
+                <label class="form-check-label" for="delivery">Odbiorca</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="delivery" name="delivery">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-check form-switch">
-                <label class="form-check-label" for="holder">Właściciel</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="holder" name="holder">
+                <label class="form-check-label" for="owner">Właściciel</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="owner" name="owner">
             </div>
         </div>
     </div>

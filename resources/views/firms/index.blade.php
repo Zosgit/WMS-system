@@ -1,16 +1,16 @@
 @extends('layouts.app')
-
+@section('title') {{ 'Kontrahenci' }} @endsection
 @section('content')
 
     <div class="card mb-4">
         <div class="card-header">
-            <b>Kontrahenci</b>{{ ' - '.$firmCount}}
+            <b>Kontrahenci</b>
                 <a href="{{ route('firms.create') }}"
                     class="btn btn-primary float-end px-4 btn-sm">Dodaj</a>
         </div>
 
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover table-sm">
                 <thead>
                 <tr>
                     <th scope="col">Nazwa firmy</th>
@@ -41,6 +41,12 @@
                 @endforeach
                 </tbody>
             </table>
+            <div>
+                {{$firms->links() }}
+            </div>
+            <p>
+                Ilość: {{$firms->count()}} z {{ $firms->total() }} rekordów.
+            </p>
 
         </div>
 

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title') {{ 'Dodaj kontrahenta' }} @endsection
 @section('content')
 
 <div class="container">
