@@ -1,14 +1,14 @@
 @extends('layouts.app')
-
+@section('title') {{ 'Pracownicy' }} @endsection
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            <b>Spis pracowników</b>{{ ' - '.$userCount}}
+            <b>Spis pracowników</b>
         </div>
 
         <div class="card-body">
 
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Imię</th>
@@ -26,7 +26,9 @@
                 @endforeach
                 </tbody>
             </table>
-
+            <p>
+                Ilość: {{$users->count()}} z {{ $users->total() }} rekordów.
+            </p>
         </div>
 
         {{--
